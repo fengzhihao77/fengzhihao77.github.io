@@ -1,0 +1,314 @@
+*{
+	margin:  0;
+	padding: 0;
+	font-family: "Poppins", sans-serif;
+	box-sizing : border-box;
+}
+
+html{
+	scroll-behavior: smooth;
+}
+
+body{
+	background: #080808;      /* black */
+	color:      #fff;         /* white */
+}
+
+#header{
+	/*widows: 100%;*/
+	/*height: 100vh;*/
+	/*background-image: url(images/Zhihao_Feng_black.png);*/
+	/*background-size: cover;*/
+	/*background-position: center;*/
+}
+
+.container{
+	padding: 10px 10%;        /* top-bottom, left-right */
+}
+
+nav{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.color{
+	widows: 140px;
+}
+
+nav ul li{
+	display: inline-block;
+	list-style: none;
+	margin: 10px 20px;
+
+}
+
+nav ul li a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 18px;
+	position: relative;
+
+}
+
+nav ul li a::after{
+	content: "";
+	width: 0;
+	height: 3px;
+	background: #B3A369;
+	position: absolute;
+	left: 0;
+	bottom: -6px;
+	transform: 0.5s;
+}
+
+nav ul li a:hover::after{
+	width: 100%;
+}
+
+.header-text{
+	margin-top: 3%;
+	font-size: 30px;
+}
+
+.header-text h1{
+
+}
+
+/*---------- about me ---------- --*/
+
+#about{
+	padding: 50px 0;
+	color: #ababab;
+}
+
+.row{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.about-col-1{
+	flex-basis: 20%;
+}
+
+.about-col-1 img{
+	width: 100%;
+	border-radius: 10px;                  /*round corner*/
+}
+
+.about-col-2{
+	flex-basis: 77%;
+}
+
+.subtitle{
+	/*font-size: 60px;*/
+	font-weight: 600;
+	color: #fff;
+}
+
+.tab-titles{
+	display: flex;
+	margin: 20px 0 40px;
+}
+
+.tab-links{
+	margin-right: 50px;
+	font-size: 18px;
+	font-weight: 500;
+	cursor: pointer;
+	position: relative;
+}
+
+.tab-links::after{
+	content: "";
+	width: 0;
+	height: 3px;
+	background: #B3A369;
+	position: absolute;
+	left: 0;
+	bottom: -8px;
+	transition: 0.5s;
+}
+
+.tab-links.active-link::after{
+	width: 50%;
+}
+
+.tab-contents ul li{
+	list-style: none;
+	margin: 10px 0;
+}
+
+.tab-contents ul li span{
+	color: #B3A369;
+	font-size: 14px;
+}
+
+.tab-contents{
+	display: none;
+}
+
+.tab-contents.active-tab{
+ 	display: block;
+}
+
+
+/*---------- publications ---------- --*/
+#publications{
+	margin: 50px 0;
+}
+
+.paper_list{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-gap: 40px;
+	margin-top: 50px;
+}
+
+.paper{
+	border-radius: 10px;
+	position: relative;
+	overflow: hidden;
+}
+
+.paper img{
+	width: 100%;
+	border-radius: 10px;
+	display: block;
+	transition: transform 0.5s;
+}
+
+.layer{
+	width: 100%;
+	height: 0%;
+	background: linear-gradient(rgba(0,0,0,0.6), #B3A369);
+	border-radius: 10px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	font-size: 18px;
+	transition: height 0.5s;
+}
+
+.layer h3{
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.layer p{
+	font-size: 14px;
+}
+
+.layer a{
+	margin-top: 20px;
+	color: #B3A369;
+	text-decoration: none;
+	font-size: 18px;
+	line-height: 30px;
+	background: #fff;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	text-align: center;
+}
+
+.paper:hover img{
+	transform: scale(1.1);
+}
+
+.paper:hover .layer{
+	height: 100%;
+}
+
+
+.google_scholar{
+	text-decoration: none;
+	display: block;
+	margin: 50px auto;
+	width: fit-content;
+	border: 1px solid #B3A369;
+	padding: 14px 50px;
+	border-radius: 6px;
+	color: #fff;
+	transition: background 0.5s;
+}
+
+.google_scholar:hover{
+	background: #B3A369;
+}
+/*---------- presentations ---------- --*/
+#presentations{
+	padding: 30px 0;
+}
+
+.presentations-row{
+	padding: 30px 0;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.presentations-col-1{
+	flex-basis: 30%;
+	transition: background 0.5s, transform: 0.5s;
+}
+
+.presentations-col-1 img{
+	width: 100%;
+	border-radius: 10px;                  /*round corner*/
+}
+
+.presentations-col-2{
+	flex-basis: 68%;
+	background: #262626;
+	padding: 40px;
+	border-radius: 10px;
+}
+
+.presentations-col-2 ul {
+	font-size: 20px;
+	font-weight: 500;
+	margin-bottom: 15px ;
+}
+
+.presentations-col-2 ul li{
+	list-style: none;
+	font-size: 14px;
+	/*font-weight: 500;*/
+	margin-top: 15px ;
+}
+
+.presentations-col-2 a{
+	/*text-decoration: none;*/
+	color: #fff;
+	font-size: 16px;
+	margin-top: 20px;
+	display: inline-block;
+}
+
+.presentations-col-1:hover{
+	transform: translateY(-10px);
+
+}
+.copyright{
+	width: 100%;
+	color: #B3A369;
+	text-align: center;
+	padding: 25px;
+	background: #262626;
+	font-weight: 300;
+	margin-top: 20px;
+}
+
+.copyright i{
+	color: #ff004f;
+}
