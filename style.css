@@ -287,6 +287,13 @@ nav ul li a:hover::after{
 	margin-top: 15px ;
 }
 
+.presentations-col-2 ul strong{
+	list-style: none;
+	font-size: 20px;
+	margin-top: 15px;
+	color: #B3A369;
+}
+
 .presentations-col-2 a{
 	/*text-decoration: none;*/
 	color: #fff;
