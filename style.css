@@ -205,14 +205,14 @@ nav ul li a:hover::after{
 }
 
 .layer p{
-	font-size: 14px;
+	font-size: 12px;
 }
 
 .layer a{
-	margin-top: 20px;
+	margin-top: 16px;
 	color: #B3A369;
 	text-decoration: none;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 30px;
 	background: #fff;
 	width: 30px;
