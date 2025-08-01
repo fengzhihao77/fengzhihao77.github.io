@@ -211,7 +211,7 @@ nav ul li a:hover::after{
 	margin-right: 4px;
 }
 
-.layer a{
+/* .layer a{
 	margin-top: 10px;
 	color: #B3A369;
 	text-decoration: none;
@@ -222,7 +222,7 @@ nav ul li a:hover::after{
 	height: 30px;
 	border-radius: 50%;
 	text-align: center;
-}
+} */
 
 .paper:hover img{
 	transform: scale(1.1);
