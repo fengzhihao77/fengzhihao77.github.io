@@ -203,17 +203,17 @@ nav ul li a:hover::after{
 .layer h3{
 	font-weight: 500;
 	margin-bottom: 14px;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 .layer p{
-	font-size: 10px;
+	font-size: 14px;
 	margin-left: 4px;
 	margin-right: 4px;
 }
 
 .layer a{
-	margin-top: 12px;
+	margin-top: 16px;
   	color: #2C3E50;
   	text-decoration: underline;
   	font-size: 12px;
