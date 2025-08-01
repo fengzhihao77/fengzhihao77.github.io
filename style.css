@@ -211,18 +211,20 @@ nav ul li a:hover::after{
 	margin-right: 4px;
 }
 
-/* .layer a{
+.layer a{
 	margin-top: 10px;
-	color: #B3A369;
-	text-decoration: none;
-	font-size: 18px;
-	line-height: 30px;
-	background: #fff;
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	text-align: center;
-} */
+  	color: #B3A369;
+  	text-decoration: underline;
+  	font-size: 14px;
+  	background: none;
+  	border: none;
+  	width: auto;
+  	height: auto;
+  	border-radius: 0;
+  	text-align: left;
+  	line-height: normal;
+  	display: inline;
+}
 
 .paper:hover img{
 	transform: scale(1.1);
