@@ -207,6 +207,8 @@ nav ul li a:hover::after{
 
 .layer p{
 	font-size: 12px;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 
 .layer a{
