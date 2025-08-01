@@ -206,16 +206,16 @@ nav ul li a:hover::after{
 }
 
 .layer p{
-	font-size: 12px;
+	font-size: 10px;
 	margin-left: 4px;
 	margin-right: 4px;
 }
 
 .layer a{
-	margin-top: 14px;
+	margin-top: 12px;
   	color: #4b0082;
   	text-decoration: underline;
-  	font-size: 14px;
+  	font-size: 12px;
   	background: none;
   	border: none;
   	width: auto;
