@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zhihao Feng</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Zhihao Feng — Portfolio" />
+  <meta name="color-scheme" content="light" />
+
+  <link rel="stylesheet" href="style_v2.css" />
+
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/6de8e9a07d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-wrap">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand-mark">ZF</span>
+        <span class="brand-text">Zhihao Feng</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <!-- <a href="#research">Research</a> -->
+        <a href="#publications">Publications</a>
+        <a href="#talks">Presentations</a>
+        <a href="#awards">Awards</a>
+        <a href="#service">Services</a>
+        <a href="#contact">Contact</a>
+        <!-- Optional: point this to a PDF in your repo -->
+        <!-- <a class="nav-cta" href="#" title="Add a link to your CV PDF">CV</a> -->
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="wrap">
+    
+    <!-- ABOUT -->
+    <section id="top" class="hero">
+      <div class="hero-photo">
+        <img src="images/Zhihao_Feng.jpeg" alt="Portrait of Zhihao Feng" loading="lazy" />
+      </div>
+
+      <div class="hero-text">
+        <h1>Zhihao Feng</h1>
+        <p class="hero-subtitle">Machine Learning and Simulation for Materials & Molecule Discovery (DFT/MD/ML)</p>
+
+        <div class="hero-links" aria-label="Quick links">
+          <!-- Replace placeholders as desired -->
+          <a class="chip" href="mailto:zfeng77@gatech.edu"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</a>
+          <a class="chip" href="https://scholar.google.com/citations?hl=en&user=fnlVr4UAAAAJ"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Scholar</a>
+          <a class="chip" href="https://www.linkedin.com/in/fengzhihao/"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+          <!-- Optional: GitHub / ORCID -->
+          <a class="chip" href="https://github.com/fengzhihao77"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+          <a class="chip" href="https://www.researchgate.net/profile/Zhihao-Feng"><i class="fa-solid fa-id-badge" aria-hidden="true"></i> ORCID</a>
+        </div>
+
+        <div class="hero-badges">
+          <span class="badge">Polymer Semiconductors</span>
+          <span class="badge">Sustainable Polymers</span>
+          <span class="badge">Force-Field Development</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2>About</h2>
+      <div class="card about-card">
+        <p>  
+        I build physics-grounded ML workflows and simulations spanning across DFT/TDDFT, atomistic MD, and coarse-graining MD, especially for polymer semiconductors and sustainable polymers. I developed a physics-informed ML surrogate for the polymer integral equation theory from 370+ GB CGMD data (~400 systems; SANS-validated; >90% benchmark wins) and built pyForceTune to optimize force fields against DFT reference data (46% lower binding-energy error; <0.1 kcal/mol dihedral error) for multiscale modeling to guide thin-film processing decisions.
+        </p>
+
+        <details class="details">
+          <summary>Skills</summary>
+            <div class="card">
+              <ul class="kv kv-compact">
+                <li><span>Languages</span><span>Python, R, Bash, Git</span></li>
+                <li><span>Key Libraries</span><span>TensorFlow, RDKit, Pyomo, SciPy, MDAnalysis, MatterTune</span></li>
+                <li><span>Software</span><span>Schr&ouml;dinger/Maestro/Jaguar, Gaussian, VASP, Materials Studio, LAMMPS, 2PT</span></li>
+                <li><span>Infrastructure</span><span>HPC/Slurm, GPU computing</span></li>
+                <li><span>Research Areas</span><span>Polymer semiconductors, sustainable polymers, physics-informed ML, DFT, TDDFT, force-field development, MLIP (UMA &amp; MACE), molecular dynamics (atomistic &amp; coarse-grained), PRISM theory</span></li>
+              </ul>
+            </div>
+        </details>
+
+      </div>
+    </section>
+
+
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <h2>Education</h2>
+
+      <ul class="timeline">
+        <li>
+          <div class="when">Ph.D.</div>
+          <div class="what">
+            <div class="title">Chemical Engineering <span class="muted">• Minor: Data Science for the Chemical Industry </span></div>
+            <div class="place">Georgia Institute of Technology</div>
+          </div>
+        </li>
+        <li>
+          <div class="when">M.S.</div>
+          <div class="what">
+            <div class="title">Chemical Engineering <span class="muted">• Focus: Machine Learning</span></div>
+            <div class="place">Cornell University</div>
+          </div>
+        </li>
+        <li>
+          <div class="when">B.S. / B.A.</div>
+          <div class="what">
+            <div class="title">Chemical Engineering & Chemistry (<i>Summa Cum Laude</i>)</div>
+            <div class="place">University at Buffalo, SUNY</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+  
+
+    <!-- RESEARCH -->
+    <!-- <section id="research" class="section">
+      <h2>Research</h2>
+
+      <div class="grid-3">
+        <article class="mini-card">
+          <h3>Physics-grounded ML</h3>
+          <p>Surrogates and learned representations grounded in polymer physics and simulation observables.</p>
+        </article>
+
+        <article class="mini-card">
+          <h3>Multiscale modeling</h3>
+          <p>Connecting DFT, force fields, and MD to predict structure, transitions, and morphology.</p>
+        </article>
+
+        <article class="mini-card">
+          <h3>Structure–property links</h3>
+          <p>Assembly metrics, scattering signatures, and thermodynamic interpretation for experiments.</p>
+        </article>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Want this section to “feel” like Eric Qu’s page?</div>
+        <div class="callout-body">
+          Keep it tight: 3–5 sentences + a few bullets. Add a small “News” block only if you update it monthly.
+        </div>
+      </div>
+    </section> -->
+
+    <!-- PUBLICATIONS -->
+    <section id="publications" class="section">
+      <div class="section-head">
+        <h2>Publications</h2>
+        <a class="text-link" href="https://scholar.google.com/citations?hl=en&user=fnlVr4UAAAAJ">Google Scholar →</a>
+      </div>
+
+      <ol class="pubs">
+        <li class="pub">
+          <img class="thumb" src="images/paper_5.jpg" alt="" loading="lazy" />
+          <div class="pub-body">
+            <div class="pub-title">Cyclic Imine-Containing Large-Gap Thienopyridine-Fused Benzodithiophene Enhances Energy Level Alignment, Co-Catalyst Deposition, and Exciton Separation for Efficient Single-Component Photocatalysts</div>
+            <div class="pub-meta">Mater. Horiz. (2026)</div>
+            <div class="pub-authors">J. H. Son, K. Ai, J. Kim, <strong>Z. Feng</strong> (Co-first), R. Newman, Y. Lee, J. Han, M. H. Song, S. S. Jang, J. Y. Kim, J. R. Durrant, H. Y. Woo</div>
+            <div class="pub-links">
+              <a href="https://pubs.rsc.org/en/Content/ArticleLanding/2026/MH/D5MH01665G" class="pill">Paper</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub">
+          <img class="thumb" src="images/paper_4.jpg" alt="" loading="lazy" />
+          <div class="pub-body">
+            <div class="pub-title">Synthesis and properties of colored waterborne polyurethanes containing a uracil azo moiety: Experimental and computational study</div>
+            <div class="pub-meta">Prog. Org. Coatings (2025)</div>
+            <div class="pub-authors">M. Kim, M. M. Rahman, S. H. Kwon, <strong>Z. Feng</strong>, N. Hsan, I. Hong, S. S. Jang, J. Koh</div>
+            <div class="pub-links">
+              <a href="https://www.sciencedirect.com/science/article/pii/S0300944025007003" class="pill">Paper</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub">
+          <img class="thumb" src="images/paper_3.jpg" alt="" loading="lazy" />
+          <div class="pub-body">
+            <div class="pub-title">Revealing the Crystallization Pathways of Mixed‐Halide Low‐Dimensional Perovskites: A First Step Toward Solar Cell Applications</div>
+            <div class="pub-meta">Solar RRL (2025)</div>
+            <div class="pub-authors">M. Guaita, R. Szostak, F. da Silva, <strong>Z. Feng</strong>, L. Scalon, V. Teixeira, T. Kodalle, C. Sutter-Fella, S. S. Jang, H. Tolentino, A. Nogueira</div>
+            <div class="pub-links">
+              <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/solr.202500404" class="pill">Paper</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub">
+          <img class="thumb" src="images/paper_2.jpg" alt="" loading="lazy" />
+          <div class="pub-body">
+            <div class="pub-title">A Machine Learning Closure for Polymer Integral Equation Theory</div>
+            <div class="pub-meta">Peer-reviewed by NIST (2025)</div>
+            <div class="pub-authors"><strong>Z. Feng</strong>, C. T. Randolph, T. Martin, T. E. Gartner III</div>
+            <div class="pub-links">
+              <a href="https://arxiv.org/pdf/2509.11030" class="pill">Preprint</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub">
+          <img class="thumb" src="images/paper_1.jpg" alt="" loading="lazy" />
+          <div class="pub-body">
+            <div class="pub-title">Virtual High-Throughput Screening of Vapor-Deposited Amphiphilic Polymers for Inhibiting Biofilm Formation</div>
+            <div class="pub-meta">Adv. Mater. Technol. (2023)</div>
+            <div class="pub-authors"><strong>Z. Feng</strong>, Y. Cheng, A. Khlyustova, A. Wani, T. Franklin, J. D. Varner, A. L. Hook, R. Yang</div>
+            <div class="pub-links">
+              <a href="https://doi.org/10.1002/admt.202201533" class="pill">Paper</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="pub">
+          <img class="thumb" src="images/paper_0.jpg" alt="" loading="lazy" />
+          <div class="pub-body">
+            <div class="pub-title">Reduced Holey Graphene Oxide Membranes for Desalination with Improved Water Permeance</div>
+            <div class="pub-meta">ACS Appl. Mater. Interfaces (2020)</div>
+            <div class="pub-authors">X. Chen, <strong>Z. Feng</strong>, J. Gohil, C. M. Stafford, N. Dai, L. Huang, H. Lin</div>
+            <div class="pub-links">
+              <a href="https://pubs.acs.org/doi/abs/10.1021/acsami.9b19255" class="pill">Paper</a>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+    </section>
+
+    <!-- TALKS -->
+    <section id="talks" class="section">
+      <h2>Presentations & Conferences</h2>
+
+      <div class="talks">
+        <article class="talk">
+          <img class="thumb" src="images/talks/talk_7.jpg" alt="" loading="lazy" />
+          <div>
+            <div class="talk-title">17th International Conference on Organic Electronics (ICOE 2025) — Coimbra, Portugal</div>
+            <div class="talk-meta">Poster Session • July 7, 2025</div>
+            <div class="talk-desc">Insights into structural behaviors of conjugated polymers with side-chain functionalization: insights from multiscale modeling</div>
+            <a class="text-link" href="https://icoe2025.co.it.pt/">Conference page →</a>
+          </div>
+        </article>
+
+        <article class="talk">
+          <img class="thumb" src="images/talks/talk_6.jpg" alt="" loading="lazy" />
+          <div>
+            <div class="talk-title">ACS Fall 2024 — Denver, CO, USA</div>
+            <div class="talk-meta">Chemistry and Physics of Polymer Interlayers for Solar Cells • Aug 18, 2024</div>
+            <div class="talk-desc">Unraveling the influence of side chain architectures on semiconducting polymer assembly: insights from multiscale modeling</div>
+            <!-- <a class="text-link" href="https://acs.digitellinc.com/live/32/session/537600">Session →</a> -->
+          </div>
+        </article>
+
+        <article class="talk">
+          <img class="thumb" src="images/talks/talk_5.jpg" alt="" loading="lazy" />
+          <div>
+            <div class="talk-title">GT Center for Organic Photonics and Electronics Spring Workshop (COPE) — Atlanta, GA, USA</div>
+            <div class="talk-meta">Poster Session • Apr 4, 2024 • <strong>Best Poster Award</strong></div>
+            <div class="talk-desc">Investigating the effect of sidechains on self-assembly of semiconducting polymer using a multiscale modeling approach</div>
+          </div>
+        </article>
+
+        <article class="talk">
+          <img class="thumb" src="images/talks/talk_4.jpg" alt="" loading="lazy" />
+          <div>
+            <div class="talk-title">APS March Meeting 2024 — Minneapolis, MN, USA</div>
+            <div class="talk-meta">Surfaces, Interfaces, Thin Films, and Coatings • Mar 6, 2024</div>
+            <div class="talk-desc">Investigating the effect of sidechains on self-assembly of semiconducting polymer using a multiscale modeling approach</div>
+            <a class="text-link" href="https://meetings.aps.org/Meeting/MAR24/Session/N26.9">Abstract →</a>
+          </div>
+        </article>
+
+        <details class="details">
+          <summary>More talks</summary>
+
+          <div class="talks talks-more">
+            <article class="talk">
+              <img class="thumb" src="images/talks/talk_3.jpg" alt="" loading="lazy" />
+              <div>
+                <div class="talk-title">GT 9th Annual Research Symposium 2023 — Atlanta, GA, USA</div>
+                <div class="talk-meta">SPN Poster Session • Apr 7, 2023 • <strong>Runner-up Award</strong></div>
+                <div class="talk-desc">Development of a machine learning-based closure relation for polymer integral equation theory</div>
+              </div>
+            </article>
+
+            <article class="talk">
+              <img class="thumb" src="images/talks/talk_2.jpg" alt="" loading="lazy" />
+              <div>
+                <div class="talk-title">APS March Meeting 2023 — Las Vegas, NV, USA</div>
+                <div class="talk-meta">Poster Session II • Mar 8, 2023</div>
+                <div class="talk-desc">Development of a machine learning-based closure relation for polymer integral equation theory</div>
+                <a class="text-link" href="https://meetings.aps.org/Meeting/MAR23/Session/N00.113">Abstract →</a>
+              </div>
+            </article>
+
+            <article class="talk talk-noimg">
+              <div>
+                <div class="talk-title">AIChE Annual Meeting 2021 — Boston, MA, USA</div>
+                <div class="talk-meta">Applications of Data Science to High Throughput Experimentation • Nov 8, 2021</div>
+                <div class="talk-desc">Virtual high-throughput screening of vapor-deposited amphiphilic polymers for biofilm reduction with machine/deep learning</div>
+                <a class="text-link" href="https://proceedings.aiche.org/conferences/aiche-annual-meeting/2021/proceeding/paper/108a-virtual-high-throughput-screening-vapor-deposited-amphiphilic-polymers-biofilm-reduction">Abstract →</a>
+              </div>
+            </article>
+
+            <article class="talk talk-noimg">
+              <div>
+                <div class="talk-title">North American Membrane Society Annual Meeting 2019 — Pittsburgh, PA, USA</div>
+                <div class="talk-meta">Undergraduate Travel Award Ceremony • May 14, 2019</div>
+                <div class="talk-desc">Reduced-holy graphene oxide (r-HGO) membranes with enhanced water permeance for water purification</div>
+              </div>
+            </article>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    
+
+    <!-- AWARDS -->
+    <section id="awards" class="section section-compact">
+      <h2>Awards &amp; Honors</h2>
+      <div class="card">
+        <ul class="clean-list">
+          <li><span class="dot"></span>Amyn S. Teja International Research Endowment Fund (2025)</li>
+          <li><span class="dot"></span>National Renewable Energy Laboratory Allocation Awardee (2025)</li>
+          <li><span class="dot"></span>Center for Organic Photonics and Electronics Best Poster Award (2024)</li>
+          <li><span class="dot"></span>Paul Scherrer Institute Proposal Awardee (2024)</li>
+          <li><span class="dot"></span>Student Polymer Network Poster Runner-up (2023)</li>
+          <li><span class="dot"></span>Ph.D. Student Exemplary Achievement Award (2022)</li>
+        </ul>
+
+        <details class="details">
+          <summary>More awards</summary>
+          <ul class="clean-list">
+            <li><span class="dot"></span>College of Engineering Travel Award (2024)</li>
+            <li><span class="dot"></span>Best Ph.D. Proposal Nominee (2023)</li>
+            <li><span class="dot"></span>Dean’s Achievement Award (2019)</li>
+            <li><span class="dot"></span>Academic Excellence Award (2019)</li>
+            <li><span class="dot"></span>North American Membrane Society Travel Award (2019)</li>
+            <li><span class="dot"></span>School of Engineering and Applied Sciences Scholarship (2019)</li>
+            <li><span class="dot"></span>Excellent Student Association Leader (2017)</li>
+            <li><span class="dot"></span>Dean’s List (2015–2019)</li>
+            <li><span class="dot"></span>Campus Tennis Runner-up (2015)</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+
+
+    <!-- PROFESSIONAL SERVICE -->
+    <section id="service" class="section section-compact">
+      <h2>Professional Services</h2>
+      <div class="card">
+        <ul class="clean-list">
+          <li><span class="dot"></span>Student Leader, National Science Foundation DMREF (GT, NCSU, and NIST) (2024–2025)</li>
+          <li><span class="dot"></span>Maintainer, Natalie Stingelin Group Website (2024–2025)</li>
+          <li><span class="dot"></span>Member, SPIE Student Chapter (2024–2025)</li>
+          <li><span class="dot"></span>Member, School of Chemical and Biomolecular Engineering Safety Council (2022–2023)</li>
+          <li><span class="dot"></span>Student Chair, Student Association (2016–2017)</li>
+        </ul>
+      </div>
+    </section>
+
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="card contact-card">
+        <p>
+          Best way to reach me: <a href="mailto:zfeng77@gatech.edu">zfeng77@gatech.edu</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-wrap">
+      <div class="muted">Designed & coded by Z. Feng • Hosted on GitHub Pages</div>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/fengzhihao/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <!-- <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a> -->
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const btn = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('#site-nav');
+
+    btn?.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      nav.classList.toggle('open', !expanded);
+    });
+
+    // Close menu after clicking a link (mobile)
+    nav?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+</body>
+</html>
