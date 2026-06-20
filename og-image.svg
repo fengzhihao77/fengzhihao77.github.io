@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1200" height="630" fill="#000000"/>
+  <rect x="0" y="0" width="14" height="630" fill="#B3A369"/>
+
+  <!-- ZF monogram, top-right -->
+  <g transform="translate(975,120)">
+    <rect width="120" height="120" rx="26" fill="none" stroke="#2a2a2f" stroke-width="2"/>
+    <text x="60" y="64" font-size="56" font-weight="700" letter-spacing="-2" fill="#B3A369" text-anchor="middle" dominant-baseline="central">ZF</text>
+  </g>
+
+  <text x="92" y="250" font-size="96" font-weight="800" fill="#ffffff" letter-spacing="-2">Zhihao Feng</text>
+
+  <text x="96" y="330" font-size="40" font-weight="600" fill="#B3A369">Machine Learning &amp; Simulation for</text>
+  <text x="96" y="384" font-size="40" font-weight="600" fill="#B3A369">Materials &amp; Molecule Discovery</text>
+
+  <text x="96" y="476" font-size="30" fill="#b7b7bf">DFT / TDDFT  ·  Molecular Dynamics  ·  Force-Field Development</text>
+
+  <line x1="96" y1="528" x2="1104" y2="528" stroke="#2a2a2f" stroke-width="1.5"/>
+  <text x="96" y="572" font-size="28" fill="#9a9aa3">Ph.D., Georgia Tech</text>
+  <text x="1104" y="572" font-size="28" fill="#9a9aa3" text-anchor="end">fengzhihao77.github.io</text>
+</svg>
