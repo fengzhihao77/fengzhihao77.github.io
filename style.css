@@ -1,11 +1,11 @@
 /* =========================================================
-   Minimal academic page — PURE BLACK background + tuned colors
-   - Pure black page (#000)
-   - High readability text
-   - Links + accents pop slightly more on black
+   Minimal academic page — pure-black default + optional light theme
+   - Pure black page (#000) by default; readable light theme via [data-theme="light"]
+   - High readability text, GT-gold accent
+   - Surfaces driven by CSS variables so both themes stay consistent
    ========================================================= */
 
-/* ---------- Theme ---------- */
+/* ---------- Theme (dark, default) ---------- */
 :root{
   /* Pure black background */
   --bg: #000000;
@@ -13,6 +13,13 @@
   /* Surfaces (still dark, but distinguishable from pure black) */
   --panel: #0b0b0c;
   --surface: #111113;
+
+  /* Translucent surface tints (adapt per theme) */
+  --surface-1: rgba(255,255,255,.06);
+  --surface-2: rgba(255,255,255,.03);
+  --hover: rgba(255,255,255,.10);
+  --header-bg: rgba(0,0,0,.74);
+  --menu-bg: rgba(0,0,0,.92);
 
   /* Typography */
   --text: #f5f5f7;        /* primary text (near-white) */
@@ -35,12 +42,34 @@
   --link-hover: #f0e1aa;
 
   --maxw: 980px;
+}
 
-  /* De-emphasize bold text globally */
-  strong, b{
-  font-weight: 500;          /* was bold; now normal-ish */
-  color: var(--text);        /* was bright; now same as body text */
-  }
+/* ---------- Theme (light) ---------- */
+[data-theme="light"]{
+  --bg: #fbfbfd;
+  --panel: #eef0f3;
+  --surface: #ffffff;
+
+  --surface-1: rgba(0,0,0,.045);
+  --surface-2: rgba(0,0,0,.025);
+  --hover: rgba(0,0,0,.07);
+  --header-bg: rgba(255,255,255,.82);
+  --menu-bg: rgba(255,255,255,.97);
+
+  --text: #1f2024;
+  --text-strong: #0a0a0b;
+  --muted: #57585f;
+  --muted-2: #73747c;
+
+  --border: #e3e4ea;
+  --shadow: 0 14px 34px rgba(20,20,40,.12);
+
+  --accent: #9c8a45;
+  --accent-soft: rgba(156,138,69,.14);
+  --accent-border: rgba(156,138,69,.50);
+
+  --link: #6f5e22;
+  --link-hover: #50450f;
 }
 
 /* ---------- Base ---------- */
@@ -71,7 +100,17 @@ a:hover{
   text-underline-offset: 3px;
 }
 
-strong{ color: var(--text-strong); }
+/* Emphasis: light weight bump, strong colour so co-author name pops */
+strong, b{ font-weight: 600; color: var(--text-strong); }
+
+/* Inline icons (replaces FontAwesome) */
+.ic{
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  fill: currentColor;
+  vertical-align: -0.125em;
+}
 
 .wrap{
   width: min(var(--maxw), calc(100% - 40px));
@@ -89,12 +128,19 @@ strong{ color: var(--text-strong); }
 }
 .skip-link:focus{ left: 10px; z-index: 9999; }
 
+/* Visible keyboard focus (WCAG 2.4.11) */
+:where(a, button, summary, .chip, .pill, .nav-toggle, .theme-toggle):focus-visible{
+  outline: 2px solid var(--link-hover);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
 /* ---------- Header / Nav ---------- */
 .site-header{
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(0,0,0,.74);
+  background: var(--header-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
@@ -107,11 +153,17 @@ strong{ color: var(--text-strong); }
   padding: 14px 0;
 }
 
+.header-right{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .brand{
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-weight: 850;
+  font-weight: 700;
   color: var(--text-strong);
 }
 .brand:hover{ text-decoration: none; color: var(--text-strong); }
@@ -122,7 +174,8 @@ strong{ color: var(--text-strong); }
   display: grid;
   place-items: center;
   border-radius: 11px;
-  background: rgba(255,255,255,.06);
+  font-weight: 700;
+  background: var(--surface-1);
   border: 1px solid var(--border);
 }
 .brand-text{ letter-spacing: .2px; }
@@ -131,7 +184,7 @@ strong{ color: var(--text-strong); }
   display: flex;
   align-items: center;
   gap: 14px;
-  font-weight: 650;
+  font-weight: 600;
   color: var(--muted);
 }
 .site-nav a{
@@ -140,14 +193,14 @@ strong{ color: var(--text-strong); }
   border-radius: 10px;
 }
 .site-nav a:hover{
-  background: rgba(255,255,255,.07);
+  background: var(--hover);
   text-decoration: none;
   color: var(--text);
 }
 
 .nav-cta{
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.06);
+  background: var(--surface-1);
   color: var(--text) !important;
 }
 .nav-cta:hover{
@@ -157,12 +210,36 @@ strong{ color: var(--text-strong); }
 .nav-toggle{
   display: none;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.06);
+  background: var(--surface-1);
   border-radius: 10px;
   padding: 10px 12px;
   cursor: pointer;
   color: var(--text);
 }
+
+/* Theme toggle */
+.theme-toggle{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+.theme-toggle:hover{
+  border-color: var(--accent-border);
+  color: var(--text-strong);
+}
+.theme-toggle .icon-moon,
+.theme-toggle .icon-sun{ display: inline-flex; align-items: center; }
+.theme-toggle .ic{ width: 1.15rem; height: 1.15rem; }
+.theme-toggle .icon-sun{ display: none; }
+[data-theme="light"] .theme-toggle .icon-sun{ display: inline-flex; }
+[data-theme="light"] .theme-toggle .icon-moon{ display: none; }
 
 /* Mobile menu */
 @media (max-width: 860px){
@@ -173,7 +250,7 @@ strong{ color: var(--text-strong); }
     top: 64px;
     flex-direction: column;
     align-items: stretch;
-    background: rgba(0,0,0,.92);
+    background: var(--menu-bg);
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 10px;
@@ -215,7 +292,7 @@ strong{ color: var(--text-strong); }
 }
 .text-link{
   color: var(--muted);
-  font-weight: 650;
+  font-weight: 600;
 }
 .text-link:hover{ color: var(--link-hover); }
 
@@ -243,8 +320,8 @@ strong{ color: var(--text-strong); }
   color: var(--text-strong);
 }
 .hero-subtitle{
-  margin: 0 0 12px;
-  font-weight: 700;
+  margin: 0 0 10px;
+  font-weight: 600;
   color: var(--muted);
 }
 .hero-blurb{
@@ -268,18 +345,32 @@ strong{ color: var(--text-strong); }
   padding: 9px 12px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.06);
-  font-weight: 650;
+  background: var(--surface-1);
+  font-weight: 600;
   color: var(--text);
 }
-.chip i{ color: var(--muted); }
+.chip .ic{ color: var(--muted); }
 .chip:hover{
   text-decoration: none;
   border-color: var(--accent-border);
-  background: rgba(255,255,255,.10);
+  background: var(--hover);
   color: var(--text-strong);
 }
-.chip:hover i{ color: var(--link-hover); }
+.chip:hover .ic{ color: var(--link-hover); }
+
+/* Primary call-to-action chip */
+.chip-primary{
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1a1407;
+}
+.chip-primary .ic{ color: #1a1407; }
+.chip-primary:hover{
+  background: var(--link-hover);
+  border-color: var(--link-hover);
+  color: #1a1407;
+}
+.chip-primary:hover .ic{ color: #1a1407; }
 
 .hero-badges{
   display: flex;
@@ -295,11 +386,6 @@ strong{ color: var(--text-strong); }
 }
 
 /* ---------- Layout helpers ---------- */
-.two-col{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
 .grid-3{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -310,9 +396,6 @@ strong{ color: var(--text-strong); }
   .hero{ grid-template-columns: 110px 1fr; }
   .hero-photo img{ width: 110px; height: 110px; }
   .grid-3{ grid-template-columns: 1fr; }
-}
-@media (max-width: 760px){
-  .two-col{ grid-template-columns: 1fr; }
 }
 
 /* ---------- Cards ---------- */
@@ -328,27 +411,13 @@ strong{ color: var(--text-strong); }
   color: var(--text-strong);
 }
 .mini-card{
-  background: rgba(255,255,255,.04);
+  background: var(--surface-1);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 16px;
 }
 .mini-card h3{ margin: 0 0 6px; color: var(--text-strong); }
-.mini-card p{ margin: 0; color: var(--muted); }
-
-.callout{
-  margin-top: 16px;
-  border: 1px solid var(--accent-border);
-  background: var(--accent-soft);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-}
-.callout-title{
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: var(--text-strong);
-}
-.callout-body{ color: var(--muted); }
+.mini-card p{ margin: 0 0 8px; color: var(--muted); }
 
 /* ---------- Key/Value list ---------- */
 .kv{
@@ -413,7 +482,7 @@ strong{ color: var(--text-strong); }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
-  background: rgba(255,255,255,.03);
+  background: var(--surface-2);
 }
 .thumb{
   width: 450px;
@@ -430,7 +499,7 @@ strong{ color: var(--text-strong); }
 }
 .pub-meta{
   color: var(--muted);
-  font-weight: 850;
+  font-weight: 500;
   margin-bottom: 6px;
 }
 .pub-authors{
@@ -449,14 +518,14 @@ strong{ color: var(--text-strong); }
   padding: 8px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.06);
-  font-weight: 850;
+  background: var(--surface-1);
+  font-weight: 600;
   color: var(--text);
 }
 .pill:hover{
   text-decoration: none;
   border-color: var(--accent-border);
-  background: rgba(255,255,255,.10);
+  background: var(--hover);
   color: var(--text-strong);
 }
 
@@ -477,14 +546,14 @@ strong{ color: var(--text-strong); }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
-  background: rgba(255,255,255,.03);
+  background: var(--surface-2);
 }
 .talk .thumb{
   width: 350px;
   height: 237.73px;
 }
 .talk-title{ font-weight: 700; margin-bottom: 4px; color: var(--text-strong); }
-.talk-meta{ color: var(--muted); font-weight: 850; margin-bottom: 8px; }
+.talk-meta{ color: var(--muted); font-weight: 500; margin-bottom: 8px; }
 .talk-desc{ color: var(--muted-2); }
 
 @media (max-width: 760px){
@@ -545,13 +614,13 @@ strong{ color: var(--text-strong); }
   place-items: center;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(255,255,255,.06);
+  background: var(--surface-1);
   color: var(--text);
 }
 .footer-links a:hover{
   text-decoration: none;
   border-color: var(--accent-border);
-  background: rgba(255,255,255,.10);
+  background: var(--hover);
   color: var(--text-strong);
 }
 
@@ -566,7 +635,6 @@ strong{ color: var(--text-strong); }
   margin: 0;
   color: var(--text);
 }
-
 
 /* ---------- Compact sections (Awards/Service) ---------- */
 .section-compact{
@@ -597,4 +665,3 @@ strong{ color: var(--text-strong); }
   display: inline-block;
   margin-top: 2px;
 }
-
