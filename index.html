@@ -96,7 +96,6 @@
 
       <div class="header-right">
         <nav id="site-nav" class="site-nav" aria-label="Primary">
-          <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#news">News</a>
           <a href="#publications">Publications</a>
@@ -153,30 +152,19 @@
           <span class="badge">Multiscale Simulation</span>
           <span class="badge">Force-Field Tooling</span>
         </div>
-      </div>
-    </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
-      <h2>About</h2>
-      <div class="card about-card">
-        <p>
-        I build physics-grounded ML workflows and simulation systems spanning DFT/TDDFT, atomistic MD, and coarse-grained MD — and I'm now a founding engineer at an early-stage San Francisco startup. In my Ph.D. work I developed a physics-informed ML surrogate for polymer integral equation theory from 370+ GB CGMD data (~400 systems; SANS-validated; &gt;90% benchmark wins) and built pyForceTune to optimize force fields against DFT reference data (46% lower binding-energy error; &lt;0.1 kcal/mol dihedral error) for multiscale modeling that guides thin-film processing decisions.
-        </p>
-
-        <details class="details">
+        <details class="details hero-skills">
           <summary>Skills</summary>
-            <div class="card">
-              <ul class="kv kv-compact">
-                <li><span>Languages</span><span>Python, R, Bash, Git</span></li>
-                <li><span>Key Libraries</span><span>TensorFlow, RDKit, Pyomo, SciPy, MDAnalysis, MatterTune</span></li>
-                <li><span>Infrastructure</span><span>HPC/Slurm, GPU computing</span></li>
-                <li><span>Software</span><span>Schr&ouml;dinger/Maestro/Jaguar, Gaussian, VASP, Materials Studio, LAMMPS, 2PT</span></li>
-                <li><span>Domains</span><span>Physics-informed ML, DFT, TDDFT, force-field development, MLIP (UMA &amp; MACE), molecular dynamics (atomistic &amp; coarse-grained), PRISM theory, polymer semiconductors, sustainable polymers</span></li>
-              </ul>
-            </div>
+          <div class="card">
+            <ul class="kv kv-compact">
+              <li><span>Languages</span><span>Python, R, Bash, Git</span></li>
+              <li><span>Key Libraries</span><span>TensorFlow, RDKit, Pyomo, SciPy, MDAnalysis, MatterTune</span></li>
+              <li><span>Infrastructure</span><span>HPC/Slurm, GPU computing</span></li>
+              <li><span>Software</span><span>Schr&ouml;dinger/Maestro/Jaguar, Gaussian, VASP, Materials Studio, LAMMPS, 2PT</span></li>
+              <li><span>Domains</span><span>Physics-informed ML, DFT, TDDFT, force-field development, MLIP (UMA &amp; MACE), molecular dynamics (atomistic &amp; coarse-grained), PRISM theory, polymer semiconductors, sustainable polymers</span></li>
+            </ul>
+          </div>
         </details>
-
       </div>
     </section>
 
@@ -185,18 +173,19 @@
       <h2>Selected Work</h2>
       <div class="grid-3">
         <div class="mini-card">
-          <h3>Built an ML closure for polymer theory</h3>
-          <p>A machine-learning closure for polymer integral-equation (PRISM) theory, trained on 370+ GB of coarse-grained MD across ~400 systems — SANS-validated, with &gt;90% benchmark wins over classical closures.</p>
-          <a class="text-link" href="https://arxiv.org/abs/2509.11030">Preprint &rarr;</a>
+          <h3>ML for polymer physics</h3>
+          <p>A physics-informed machine-learning closure for polymer integral-equation (PRISM) theory — trained on 370+ GB of coarse-grained MD across ~400 systems, SANS-validated, and beating classical closures in &gt;90% of tests, with inference in minutes instead of days.</p>
+          <a class="text-link" href="https://arxiv.org/abs/2509.11030">Know more &rarr;</a>
         </div>
         <div class="mini-card">
-          <h3>Built pyForceTune, a force-field optimizer</h3>
-          <p>Software that tunes classical force fields against DFT reference data — 46% lower binding-energy error and &lt;0.1 kcal/mol dihedral error — for trustworthy atomistic and coarse-grained simulation. <span class="muted-2">(internal tool)</span></p>
+          <h3>Force-field development</h3>
+          <p>pyForceTune — a Python/Pyomo toolkit that optimizes bonded and nonbonded force-field parameters against DFT reference data, cutting binding-energy error 46% with &lt;0.1 kcal/mol dihedral error for reliable conjugated-polymer simulation.</p>
+          <a class="text-link" href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=fnlVr4UAAAAJ&citation_for_view=fnlVr4UAAAAJ:qjMakFHDy7sC">Know more &rarr;</a>
         </div>
         <div class="mini-card">
-          <h3>Built a DFT&rarr;MD multiscale pipeline</h3>
-          <p>DFT/TDDFT with atomistic and coarse-grained MD, linking side-chain chemistry to self-assembly, thin-film morphology, and processing for organic electronics.</p>
-          <a class="text-link" href="https://meetings.aps.org/Meeting/MAR24/Session/N26.9">APS 2024 &rarr;</a>
+          <h3>DFT / MD simulation</h3>
+          <p>Multiscale DFT/TDDFT with atomistic and coarse-grained MD, linking molecular design to self-assembly, morphology, and device-relevant behavior in organic electronics.</p>
+          <a class="text-link" href="https://scholar.google.com/citations?hl=en&user=fnlVr4UAAAAJ">Know more &rarr;</a>
         </div>
       </div>
     </section>
