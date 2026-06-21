@@ -10,12 +10,12 @@
 
   <text x="92" y="250" font-size="96" font-weight="800" fill="#ffffff" letter-spacing="-2">Zhihao Feng</text>
 
-  <text x="96" y="330" font-size="40" font-weight="600" fill="#B3A369">Machine Learning &amp; Simulation for</text>
-  <text x="96" y="384" font-size="40" font-weight="600" fill="#B3A369">Materials &amp; Molecule Discovery</text>
+  <text x="96" y="330" font-size="34" font-weight="600" fill="#B3A369">Founding Engineer · Physics-informed ML &amp; Simulation</text>
+  <text x="96" y="384" font-size="34" font-weight="600" fill="#B3A369">Research-grounded engineer who ships</text>
 
-  <text x="96" y="476" font-size="30" fill="#b7b7bf">DFT / TDDFT  ·  Molecular Dynamics  ·  Force-Field Development</text>
+  <text x="96" y="476" font-size="30" fill="#b7b7bf">DFT / TDDFT  ·  Molecular Dynamics  ·  Force-Field Tooling</text>
 
   <line x1="96" y1="528" x2="1104" y2="528" stroke="#2a2a2f" stroke-width="1.5"/>
-  <text x="96" y="572" font-size="28" fill="#9a9aa3">Ph.D., Georgia Tech</text>
+  <text x="96" y="572" font-size="28" fill="#9a9aa3">Ph.D., Georgia Tech · ACS PMSE 2026</text>
   <text x="1104" y="572" font-size="28" fill="#9a9aa3" text-anchor="end">fengzhihao77.github.io</text>
 </svg>
