@@ -825,28 +825,15 @@ body::before{
   z-index: -1;
 }
 
-/* Hero stat strip */
-.hero-stats{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 26px;
-  margin: 2px 0 16px;
+/* Hero metric emphasis — gold numbers animated in place (compositor-only, no reflow) */
+.metric{ display: inline-block; color: var(--link); font-weight: 700; }
+@keyframes pop{
+  0%{ opacity: .45; transform: scale(.9); text-shadow: 0 0 0 rgba(179,163,105,0); }
+  45%{ text-shadow: 0 0 14px rgba(179,163,105,.45); }
+  100%{ opacity: 1; transform: none; text-shadow: 0 0 0 rgba(179,163,105,0); }
 }
-.hero-stats .stat{ display: flex; flex-direction: column; gap: 3px; }
-.hero-stats .stat-num{
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.55rem, 3vw, 2.25rem);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  color: var(--link);
-  font-variant-numeric: tabular-nums;
-}
-.hero-stats .stat-label{
-  font-size: .72rem;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--muted);
+@media (prefers-reduced-motion: no-preference){
+  .metric{ animation: pop .6s var(--ease) both; animation-delay: var(--d, .6s); }
 }
 
 /* Card hover affordance — colour/shadow for everyone (RM-safe) */
@@ -865,7 +852,6 @@ body::before{
   .hero-text h1{ animation-delay: .06s; }
   .hero-subtitle{ animation-delay: .12s; }
   .hero-blurb{ animation-delay: .18s; }
-  .hero-stats{ animation-delay: .24s; }
   .hero-award{ animation-delay: .30s; }
   .hero-links{ animation-delay: .36s; }
   .hero-badges{ animation-delay: .42s; }
