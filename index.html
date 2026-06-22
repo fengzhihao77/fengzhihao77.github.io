@@ -519,6 +519,13 @@
     navToggle?.addEventListener('click', () => setNav(navToggle.getAttribute('aria-expanded') !== 'true'));
     nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNav(false)));
 
+    // Brand (ZF) -> jump fully to the top, clear of the sticky header
+    document.querySelector('.brand')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      setNav(false);
+      window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+
     // Light / dark theme toggle
     const themeToggle = document.querySelector('.theme-toggle');
     const currentTheme = () => document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
