@@ -562,17 +562,32 @@
     try { savedSort = localStorage.getItem('pubsort') || 'selected'; } catch (e) {}
     sortPubs(savedSort);
 
-    // Scroll-reveal + one-shot count-up — motion only; reduced-motion shows everything statically.
+    // Scroll-reveal — bulletproof: anything reachable always reveals, so content can never get stuck hidden.
+    // Reduced-motion and JS-off show everything statically (the hidden start-state is gated to .has-reveal + no-preference).
     (function(){
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-      document.documentElement.classList.add('has-reveal');
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const els = [...document.querySelectorAll('.section h2, .mini-card, .pub, .talk, .timeline li, .news-list li, .clean-list li, .contact-card')];
+      if (!els.length) return;
+      document.documentElement.classList.add('has-reveal');
       const seen = new Map();
       els.forEach(el => { const p = el.parentElement; const n = seen.get(p) || 0; el.style.setProperty('--i', Math.min(n, 6)); seen.set(p, n + 1); });
-      const io = new IntersectionObserver((es) => {
-        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
-      els.forEach(el => io.observe(el));
+      let pending = els.slice(), ticking = false;
+      function reveal(){
+        ticking = false;
+        const line = window.innerHeight * 0.92;
+        pending = pending.filter(el => {
+          if (el.getBoundingClientRect().top < line) { el.classList.add('in'); return false; }
+          return true;
+        });
+        if (!pending.length) { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); }
+      }
+      function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(reveal); } }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      window.addEventListener('pageshow', reveal);
+      // Failsafe: if motion never gets a chance to run, reveal everything so nothing can stay invisible.
+      setTimeout(function(){ els.forEach(el => el.classList.add('in')); }, 2500);
+      reveal();
     })();
   </script>
 

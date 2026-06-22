@@ -881,7 +881,7 @@ body::before{
     transition: opacity .5s var(--ease), translate .5s var(--ease);
     transition-delay: calc(var(--i, 0) * 55ms);
   }
-  .has-reveal .in{ opacity: 1; translate: 0 0; }
+  .has-reveal .in{ opacity: 1 !important; translate: 0 0 !important; }
 
   /* Gild-on-reveal: the section heading draws its gold underline + one soft bloom */
   .has-reveal .section h2::after{ transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease) .1s; }
