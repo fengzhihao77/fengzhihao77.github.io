@@ -463,6 +463,8 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   color: var(--text-strong);
 }
 .kv li > span:last-child{ color: var(--muted); }
+/* Gold skill label (e.g., Agentic AI) — same theme-aware gold as links, AA in both themes */
+.kv li > span.kv-gold{ color: var(--link); }
 
 @media (max-width: 520px){
   .kv li{ grid-template-columns: 1fr; gap: 2px; }
