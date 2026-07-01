@@ -887,7 +887,37 @@ body::before{
   .has-reveal .section h2::after{ transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease) .1s; }
   .has-reveal .section h2.in::after{ transform: scaleX(1); }
   .has-reveal .section h2.in{ animation: bloom .9s var(--ease) 1; }
+
+  /* GSAP walkthrough mode (html.has-gsap): the scroll-scrubbed reveals own `transform`
+     via inline styles, so hover-lift moves to the independent `translate` property,
+     and the gild underline mirrors the .has-reveal rules above. */
+  .has-gsap .mini-card, .has-gsap .pub, .has-gsap .talk, .has-gsap .timeline li{
+    transition: translate .2s var(--ease), box-shadow .2s var(--ease), border-color .18s var(--ease);
+  }
+  .has-gsap .mini-card:hover, .has-gsap .pub:hover, .has-gsap .talk:hover, .has-gsap .timeline li:hover,
+  .has-gsap .mini-card:focus-within, .has-gsap .pub:focus-within, .has-gsap .talk:focus-within{
+    translate: 0 -2px;
+  }
+  .has-gsap .section h2::after{ transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease) .1s; }
+  .has-gsap .section h2.in::after{ transform: scaleX(1); }
+  .has-gsap .section h2.in{ animation: bloom .9s var(--ease) 1; }
 }
+
+/* Gold reading-progress rail (shown only in GSAP walkthrough mode; GSAP scrubs scaleX) */
+.progress-rail{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--link));
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 60;
+  pointer-events: none;
+  display: none;
+}
+.has-gsap .progress-rail{ display: block; }
 
 /* Smooth theme crossfade via View Transitions (falls back to instant) */
 ::view-transition-old(root), ::view-transition-new(root){ animation-duration: .25s; }
