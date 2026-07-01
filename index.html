@@ -47,6 +47,11 @@
 
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Scroll-walkthrough engine (GSAP + ScrollTrigger). `defer` executes before
+       DOMContentLoaded; if the CDN fails, the inline script falls back to the legacy reveal. -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+
   <!-- Structured data -->
   <script type="application/ld+json">
   {
@@ -87,6 +92,7 @@
 
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
+  <div class="progress-rail" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="wrap header-wrap">
@@ -569,11 +575,16 @@
     try { savedSort = localStorage.getItem('pubsort') || 'selected'; } catch (e) {}
     sortPubs(savedSort);
 
-    // Scroll-reveal — bulletproof: anything reachable always reveals, so content can never get stuck hidden.
+    // Scroll motion — GSAP walkthrough (scroll-scrubbed) when the CDN loaded, legacy
+    // one-shot reveal otherwise. Each path only hides what it reveals itself, so a
+    // failed script load can never leave content invisible.
+    const revealSelector = '.section h2, .mini-card, .pub, .talk, .timeline li, .news-list li, .clean-list li, .contact-card';
+
+    // Legacy reveal — bulletproof: anything reachable always reveals, so content can never get stuck hidden.
     // Reduced-motion and JS-off show everything statically (the hidden start-state is gated to .has-reveal + no-preference).
-    (function(){
+    function legacyReveal(){
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const els = [...document.querySelectorAll('.section h2, .mini-card, .pub, .talk, .timeline li, .news-list li, .clean-list li, .contact-card')];
+      const els = [...document.querySelectorAll(revealSelector)];
       if (!els.length) return;
       document.documentElement.classList.add('has-reveal');
       const seen = new Map();
@@ -595,7 +606,66 @@
       // Failsafe: if motion never gets a chance to run, reveal everything so nothing can stay invisible.
       setTimeout(function(){ els.forEach(el => el.classList.add('in')); }, 2500);
       reveal();
-    })();
+    }
+
+    function initWalkthrough(){
+      gsap.registerPlugin(ScrollTrigger);
+      document.documentElement.classList.add('has-gsap');
+
+      // Gold reading-progress rail
+      gsap.to('.progress-rail', {
+        scaleX: 1, ease: 'none',
+        scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+      });
+
+      // Scrubbed reveals — motion tied to scroll position (reverses with it);
+      // siblings get slightly offset trigger lines for a cascaded feel.
+      const seen = new Map();
+      document.querySelectorAll(revealSelector).forEach(el => {
+        const p = el.parentElement, n = seen.get(p) || 0, i = Math.min(n, 4);
+        seen.set(p, n + 1);
+        // clamp() keeps start/end inside the reachable scroll range, so content near
+        // the page bottom still completes its reveal on tall viewports
+        gsap.fromTo(el, { autoAlpha: 0, y: 18 }, {
+          autoAlpha: 1, y: 0, ease: 'none',
+          scrollTrigger: { trigger: el, start: `clamp(top ${96 - i * 2}%)`, end: `clamp(top ${80 - i * 2}%)`, scrub: 0.4 }
+        });
+      });
+
+      // Gild-on-reveal headings: one-shot underline draw + bloom via the existing CSS
+      document.querySelectorAll('.section h2').forEach(h2 => {
+        ScrollTrigger.create({ trigger: h2, start: 'clamp(top 88%)', once: true, onEnter: () => h2.classList.add('in') });
+      });
+
+      // Hero depth exit — drifts up and dims as the visitor scrolls on.
+      // Targets the section container: its children carry the fadeRise entrance
+      // animation, whose fill-mode would override a transform set on them.
+      const hero = document.querySelector('.hero');
+      if (hero) gsap.to(hero, {
+        y: -40, opacity: .35, ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.5 }
+      });
+
+      // Parallax drift on figure thumbnails (desktop only; auto-reverted below 720px)
+      gsap.matchMedia().add('(min-width: 720px)', () => {
+        document.querySelectorAll('.pub .thumb, .talk .thumb').forEach(img => {
+          gsap.fromTo(img, { y: 10 }, {
+            y: -10, ease: 'none',
+            scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+          });
+        });
+      });
+
+      // Layout changes move trigger positions — re-measure
+      document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => ScrollTrigger.refresh()));
+      sortBtns.forEach(btn => btn.addEventListener('click', () => ScrollTrigger.refresh()));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (window.gsap && window.ScrollTrigger) initWalkthrough();
+      else legacyReveal();
+    });
   </script>
 
   <!-- Privacy-friendly, cookieless analytics (GoatCounter) -->
