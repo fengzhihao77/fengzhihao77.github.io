@@ -271,9 +271,36 @@ html{ overflow-x: clip; }
 [data-theme="light"] .theme-toggle .icon-sun{ display: inline-flex; }
 [data-theme="light"] .theme-toggle .icon-moon{ display: none; }
 
+/* Scrollspy active-section state (gold, plus aria-current for AT) */
+.site-nav a[aria-current],
+.bottom-bar a[aria-current]{ color: var(--link); }
+
+/* Mobile bottom anchor bar (thumb-reachable; scrollspy-driven) */
+.bottom-bar{
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 55;
+  display: none;
+  background: var(--menu-bg);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.bottom-bar a{
+  flex: 1;
+  text-align: center;
+  padding: 14px 4px;
+  font-weight: 600;
+  font-size: .92rem;
+  color: var(--muted);
+}
+.bottom-bar a:hover{ text-decoration: none; color: var(--text); }
+
 /* Header nav collapses on small screens; the fixed bottom bar takes over ≤640px */
 @media (max-width: 640px){
   .site-nav{ display: none; }
+  .bottom-bar{ display: flex; }
+  body{ padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
 }
 
 /* ---------- Sections ---------- */
@@ -831,7 +858,7 @@ html{ overflow-x: clip; }
 }
 :root{ --font-display: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', serif; }
 
-h1, .section h2, .card h3, .mini-card h3, .brand{
+h1, .section h2, .card h3, .feature h3, .brand{
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.01em;

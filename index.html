@@ -489,6 +489,13 @@
     </section>
   </main>
 
+  <nav class="bottom-bar" aria-label="Section navigation">
+    <a href="#work">Work</a>
+    <a href="#publications">Papers</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
   <footer class="site-footer">
     <div class="wrap">
       <nav class="footer-map" aria-label="Site map">
@@ -575,6 +582,27 @@
     let savedSort = 'selected';
     try { savedSort = localStorage.getItem('pubsort') || 'selected'; } catch (e) {}
     renderPubs(savedSort);
+
+    // Scrollspy — state, not motion: deliberately outside the reduced-motion/GSAP
+    // dispatcher so the active-section signal works in all three paths.
+    // Only nav-listed sections are observed; between them the last one stays lit.
+    (function(){
+      const links = [...document.querySelectorAll('.site-nav a[href^="#"], .bottom-bar a[href^="#"]')];
+      if (!('IntersectionObserver' in window) || !links.length) return;
+      const sections = new Set();
+      links.forEach(a => { const s = document.querySelector(a.hash); if (s) sections.add(s); });
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const hash = '#' + e.target.id;
+          links.forEach(a => {
+            if (a.hash === hash) a.setAttribute('aria-current', 'true');
+            else a.removeAttribute('aria-current');
+          });
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      sections.forEach(s => io.observe(s));
+    })();
 
     // Scroll motion — GSAP walkthrough (scroll-scrubbed) when the CDN loaded, legacy
     // one-shot reveal otherwise. Each path only hides what it reveals itself, so a
