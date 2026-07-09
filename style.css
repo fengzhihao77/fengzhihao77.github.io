@@ -600,6 +600,44 @@ html{ overflow-x: clip; }
   color: var(--text-strong);
 }
 
+/* Compact tier: non-selected papers in "Selected" view, every paper in "By year" */
+.pub-compact{
+  grid-template-columns: 1fr;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  padding: 12px 2px;
+}
+.pub-compact .thumb,
+.pub-compact .pub-authors{ display: none; }
+.pub-compact .pub-title{ margin-bottom: 4px; }
+.pub-compact .pub-meta{ margin-bottom: 8px; }
+
+/* Year group divider in the "By year" view (inserted by renderPubs) */
+.pub-divider{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 12px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--muted-2);
+}
+.pub-divider::after{
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-border), transparent);
+}
+
+/* Persistent flagship marker — survives the By-year re-sort */
+.tag-selected{
+  border-style: solid;
+  background: var(--accent-soft);
+}
+
 @media (max-width: 760px){
   .pub{ grid-template-columns: 1fr; }
   .thumb{ width: 100%; height: 150px; }
@@ -838,9 +876,9 @@ body::before{
   .metric{ animation: pop .6s var(--ease) both; animation-delay: var(--d, .6s); }
 }
 
-/* Card hover affordance — colour/shadow for everyone (RM-safe) */
-.feature:hover, .pub:hover, .talk:hover,
-.feature:focus-within, .pub:focus-within, .talk:focus-within{
+/* Card hover affordance — colour/shadow for everyone (RM-safe); compact rows stay flat */
+.feature:hover, .pub:not(.pub-compact):hover, .talk:hover,
+.feature:focus-within, .pub:not(.pub-compact):focus-within, .talk:focus-within{
   border-color: var(--accent-border);
   box-shadow: var(--shadow);
 }
@@ -864,8 +902,8 @@ body::before{
   .feature, .pub, .talk{
     transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .18s var(--ease);
   }
-  .feature:hover, .pub:hover, .talk:hover,
-  .feature:focus-within, .pub:focus-within, .talk:focus-within{
+  .feature:hover, .pub:not(.pub-compact):hover, .talk:hover,
+  .feature:focus-within, .pub:not(.pub-compact):focus-within, .talk:focus-within{
     transform: translateY(-2px);
   }
   .pub:hover .thumb, .talk:hover .thumb{ filter: brightness(1.06); transition: filter .2s var(--ease); }
@@ -896,8 +934,8 @@ body::before{
   .has-gsap .feature, .has-gsap .pub, .has-gsap .talk{
     transition: translate .2s var(--ease), box-shadow .2s var(--ease), border-color .18s var(--ease);
   }
-  .has-gsap .feature:hover, .has-gsap .pub:hover, .has-gsap .talk:hover,
-  .has-gsap .feature:focus-within, .has-gsap .pub:focus-within, .has-gsap .talk:focus-within{
+  .has-gsap .feature:hover, .has-gsap .pub:not(.pub-compact):hover, .has-gsap .talk:hover,
+  .has-gsap .feature:focus-within, .has-gsap .pub:not(.pub-compact):focus-within, .has-gsap .talk:focus-within{
     translate: 0 -2px;
   }
   .has-gsap .section h2::after{ transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease) .1s; }

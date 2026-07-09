@@ -250,6 +250,7 @@
           <div class="pub-body">
             <div class="pub-title">Cyclic Imine-Containing Large-Gap Thienopyridine-Fused Benzodithiophene Enhances Energy Level Alignment, Co-Catalyst Deposition, and Exciton Separation for Efficient Single-Component Photocatalysts</div>
             <div class="pub-meta">
+              <span class="role-tag tag-selected">Selected</span>
               <span class="status status-published">Published</span>
               <span class="venue">Mater. Horiz. · 2026</span>
               <span class="role-tag role-cofirst">Co-first author</span>
@@ -296,6 +297,7 @@
           <div class="pub-body">
             <div class="pub-title">A Machine Learning Closure for Polymer Integral Equation Theory</div>
             <div class="pub-meta">
+              <span class="role-tag tag-selected">Selected</span>
               <span class="status status-review">Under review</span>
               <span class="venue">J. Chem. Phys. · 2025</span>
               <span class="role-tag role-first">First author</span>
@@ -312,6 +314,7 @@
           <div class="pub-body">
             <div class="pub-title">Virtual High-Throughput Screening of Vapor-Deposited Amphiphilic Polymers for Inhibiting Biofilm Formation</div>
             <div class="pub-meta">
+              <span class="role-tag tag-selected">Selected</span>
               <span class="status status-published">Published</span>
               <span class="venue">Adv. Mater. Technol. · 2023</span>
               <span class="role-tag role-first">First author</span>
@@ -539,19 +542,33 @@
       else swap();
     });
 
-    // Publications sort toggle (visitor-selectable order)
+    // Publications: two-tier "Selected" view / year-grouped archive view.
+    // Dividers are .pub-divider (never .pub) so they can't match revealSelector
+    // and end up hidden by the scroll motion with no guaranteed reveal.
     const pubList = document.querySelector('.pubs');
     const sortBtns = document.querySelectorAll('.pub-sort-btn');
-    function sortPubs(mode){
+    function renderPubs(mode){
       if (!pubList) return;
-      const items = [...pubList.children];
+      pubList.querySelectorAll('.pub-divider').forEach(d => d.remove());
+      const items = [...pubList.querySelectorAll('.pub')];
       items.sort((a, b) => {
         if (mode === 'year') {
           return (+b.dataset.year - +a.dataset.year) || (+a.dataset.order - +b.dataset.order);
         }
         return (+a.dataset.rank - +b.dataset.rank);
       });
-      items.forEach(li => pubList.appendChild(li));
+      let year = null;
+      items.forEach(li => {
+        li.classList.toggle('pub-compact', mode === 'year' || +li.dataset.rank > 3);
+        if (mode === 'year' && li.dataset.year !== year){
+          year = li.dataset.year;
+          const d = document.createElement('li');
+          d.className = 'pub-divider';
+          d.textContent = year;
+          pubList.appendChild(d);
+        }
+        pubList.appendChild(li);
+      });
       sortBtns.forEach(btn => {
         const on = btn.dataset.sort === mode;
         btn.classList.toggle('is-active', on);
@@ -559,10 +576,10 @@
       });
       try { localStorage.setItem('pubsort', mode); } catch (e) {}
     }
-    sortBtns.forEach(btn => btn.addEventListener('click', () => sortPubs(btn.dataset.sort)));
+    sortBtns.forEach(btn => btn.addEventListener('click', () => renderPubs(btn.dataset.sort)));
     let savedSort = 'selected';
     try { savedSort = localStorage.getItem('pubsort') || 'selected'; } catch (e) {}
-    sortPubs(savedSort);
+    renderPubs(savedSort);
 
     // Scroll motion — GSAP walkthrough (scroll-scrubbed) when the CDN loaded, legacy
     // one-shot reveal otherwise. Each path only hides what it reveals itself, so a
@@ -637,7 +654,7 @@
 
       // Parallax drift on figure thumbnails (desktop only; auto-reverted below 720px)
       gsap.matchMedia().add('(min-width: 720px)', () => {
-        document.querySelectorAll('.pub .thumb, .talk .thumb, .feature-fig img').forEach(img => {
+        document.querySelectorAll('.pub:not(.pub-compact) .thumb, .talk .thumb, .feature-fig img').forEach(img => {
           gsap.fromTo(img, { y: 10 }, {
             y: -10, ease: 'none',
             scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
