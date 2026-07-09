@@ -324,6 +324,21 @@ html{ overflow-x: clip; }
   border-radius: 3px;
 }
 
+/* Numbered ordinals on the main-flow sections only (pair-band sections are
+   main > .pair-band > .section, so they're excluded by the direct-child selector;
+   numbers stay muted — the gold budget is spent on the underline + bloom) */
+main{ counter-reset: sec; }
+main > .section{ counter-increment: sec; }
+main > .section h2::before{
+  content: counter(sec, decimal-leading-zero) ".";
+  margin-right: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--muted-2);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .03em;
+}
+
 .section-head{
   display: flex;
   align-items: baseline;
@@ -473,6 +488,20 @@ html{ overflow-x: clip; }
 @media (max-width: 700px){
   .hero{ grid-template-columns: 110px 1fr; }
   .hero-photo img{ width: 110px; height: 110px; }
+}
+
+/* Hero compression at phone widths: Selected Work should appear within ~1.5 screens */
+@media (max-width: 480px){
+  .hero{ padding-top: 22px; gap: 14px; grid-template-columns: 100px 1fr; }
+  .hero-photo img{ width: 100px; height: 100px; }
+  .hero-text h1{ font-size: 2.1rem; }
+  .hero-subtitle{ font-size: .95rem; }
+  .hero-blurb{ font-size: .95rem; margin-bottom: 12px; }
+  .hero-award{ font-size: .88rem; padding: 8px 12px; margin-bottom: 12px; }
+  .hero-links{ gap: 8px; margin-bottom: 10px; }
+  .chip{ padding: 7px 10px; font-size: .9rem; }
+  .badge{ font-size: .8rem; padding: 5px 8px; }
+  .hero-credentials{ font-size: .85rem; margin-top: 10px; }
 }
 
 /* ---------- Cards ---------- */
@@ -779,6 +808,9 @@ html{ overflow-x: clip; }
 .footer-map a{ color: var(--muted); }
 .footer-map a:hover{ color: var(--link-hover); }
 .footer-map .to-top{ margin-left: auto; color: var(--link); }
+@media (max-width: 640px){
+  .footer-map{ gap: 2px 14px; font-size: .85rem; }
+}
 .footer-links{
   display: inline-flex;
   gap: 12px;
