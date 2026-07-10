@@ -682,6 +682,14 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   margin: 0 0 18px;
 }
 .contact-coda h2::after{ margin-inline: auto; }
+.coda-loop{ margin: 0 auto 26px; }
+.coda-loop img{
+  width: min(420px, 100%);
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
 .contact-coda p{ color: var(--muted); margin: 0 0 28px; }
 .coda-cta{
   display: inline-block;

@@ -462,6 +462,9 @@
       <div class="contact-coda">
         <p class="coda-overline">Get in touch</p>
         <h2>Contact</h2>
+        <figure class="coda-loop">
+          <img id="coda-loop" alt="" width="480" height="320" decoding="async" />
+        </figure>
         <p>
           Currently a founding engineer at a San Francisco startup — happy to compare notes with builders, founders, and people working on hard ML problems.
         </p>
@@ -548,6 +551,19 @@
     let savedSort = 'selected';
     try { savedSort = localStorage.getItem('pubsort') || 'selected'; } catch (e) {}
     renderPubs(savedSort);
+
+    // Contact loop — one of five simulation vignettes, picked at random per visit.
+    // Reduced-motion visitors get the static first frame instead; only the chosen
+    // file is ever fetched (lazy, and it sits at the bottom of the page).
+    (function(){
+      const img = document.getElementById('coda-loop');
+      if (!img) return;
+      const themes = ['dft', 'forcefield', 'md', 'cfd', 'ml'];
+      const pick = themes[Math.floor(Math.random() * themes.length)];
+      const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      img.loading = 'lazy';
+      img.src = 'images/loops/' + pick + (rm ? '-poster' : '') + '.webp';
+    })();
 
     // Scrollspy — state, not motion: deliberately outside the reduced-motion/GSAP
     // dispatcher so the active-section signal works in all three paths.
