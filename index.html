@@ -104,7 +104,6 @@
 
       <div class="header-right">
         <nav id="site-nav" class="site-nav" aria-label="Primary">
-          <a href="#work">Work</a>
           <a href="#publications">Publications</a>
           <a href="#news">News</a>
           <a href="#contact">Contact</a>
@@ -123,7 +122,7 @@
   <main id="content" class="wrap">
 
     <!-- HERO -->
-    <section id="top" class="hero breakout">
+    <section id="top" class="hero">
       <div class="hero-photo">
         <img src="images/Zhihao_Feng.webp" alt="Portrait of Zhihao Feng" width="140" height="140" fetchpriority="high" decoding="async" />
       </div>
@@ -153,12 +152,6 @@
           <span class="badge">Multiscale Simulation</span>
           <span class="badge">Force-Field Tooling</span>
         </div>
-
-        <p class="hero-credentials">
-          Ph.D. Chemical Engineering — Georgia Tech
-          <span class="cred-sep">·</span> M.S. — Cornell University
-          <span class="cred-sep">·</span> B.S./B.A. — University at Buffalo, <i>Summa Cum Laude</i>
-        </p>
 
         <details class="details hero-skills">
           <summary>Skills</summary>
@@ -195,45 +188,8 @@
       </ul>
     </section>
 
-    <!-- SELECTED WORK -->
-    <section id="work" class="section breakout">
-      <h2>Selected Work</h2>
-      <div class="features">
-        <article class="feature">
-          <div class="feature-body">
-            <h3>ML for polymer physics</h3>
-            <p>A physics-informed machine-learning closure for polymer integral-equation (PRISM) theory — trained on 370+ GB of coarse-grained MD across ~400 systems, SANS-validated, and beating classical closures in &gt;90% of tests, with inference in minutes instead of days.</p>
-            <a class="text-link" href="https://arxiv.org/abs/2509.11030">Know more &rarr;</a>
-          </div>
-          <figure class="feature-fig">
-            <img src="images/papers/paper_2.webp" alt="" width="450" height="231" loading="lazy" decoding="async" />
-          </figure>
-        </article>
-        <article class="feature">
-          <div class="feature-body">
-            <h3>Force-field development</h3>
-            <p>pyForceTune — a Python/Pyomo toolkit that optimizes bonded and nonbonded force-field parameters against DFT reference data, cutting binding-energy error 46% with &lt;0.1 kcal/mol dihedral error for reliable conjugated-polymer simulation.</p>
-            <a class="text-link" href="https://doi.org/10.1117/12.3063330">Know more &rarr;</a>
-          </div>
-          <figure class="feature-fig">
-            <img src="images/papers/paper_1.webp" alt="" width="450" height="231" loading="lazy" decoding="async" />
-          </figure>
-        </article>
-        <article class="feature">
-          <div class="feature-body">
-            <h3>DFT / MD simulation</h3>
-            <p>Multiscale DFT/TDDFT with atomistic and coarse-grained MD, linking molecular design to self-assembly, morphology, and device-relevant behavior in organic electronics.</p>
-            <a class="text-link" href="https://doi.org/10.1039/D5MH01665G">Know more &rarr;</a>
-          </div>
-          <figure class="feature-fig">
-            <img src="images/papers/paper_5.webp" alt="" width="450" height="231" loading="lazy" decoding="async" />
-          </figure>
-        </article>
-      </div>
-    </section>
-
     <!-- PUBLICATIONS -->
-    <section id="publications" class="section breakout">
+    <section id="publications" class="section">
       <div class="section-head">
         <h2>Publications</h2>
         <a class="text-link" href="https://scholar.google.com/citations?hl=en&user=fnlVr4UAAAAJ">Google Scholar &rarr;</a>
@@ -250,7 +206,6 @@
           <div class="pub-body">
             <div class="pub-title">Cyclic Imine-Containing Large-Gap Thienopyridine-Fused Benzodithiophene Enhances Energy Level Alignment, Co-Catalyst Deposition, and Exciton Separation for Efficient Single-Component Photocatalysts</div>
             <div class="pub-meta">
-              <span class="role-tag tag-selected">Selected</span>
               <span class="status status-published">Published</span>
               <span class="venue">Mater. Horiz. · 2026</span>
               <span class="role-tag role-cofirst">Co-first author</span>
@@ -297,7 +252,6 @@
           <div class="pub-body">
             <div class="pub-title">A Machine Learning Closure for Polymer Integral Equation Theory</div>
             <div class="pub-meta">
-              <span class="role-tag tag-selected">Selected</span>
               <span class="status status-review">Under review</span>
               <span class="venue">J. Chem. Phys. · 2025</span>
               <span class="role-tag role-first">First author</span>
@@ -314,7 +268,6 @@
           <div class="pub-body">
             <div class="pub-title">Virtual High-Throughput Screening of Vapor-Deposited Amphiphilic Polymers for Inhibiting Biofilm Formation</div>
             <div class="pub-meta">
-              <span class="role-tag tag-selected">Selected</span>
               <span class="status status-published">Published</span>
               <span class="venue">Adv. Mater. Technol. · 2023</span>
               <span class="role-tag role-first">First author</span>
@@ -386,6 +339,34 @@
       </ul>
     </section>
     </div>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <h2>Education</h2>
+      <ul class="edu-list">
+        <li>
+          <img class="edu-logo" src="images/logos/gatech.png" alt="" width="70" height="44" loading="lazy" decoding="async" />
+          <div class="what">
+            <div class="title">Ph.D. Chemical Engineering <span class="muted">• Minor: Data Science for the Chemical Industry</span></div>
+            <div class="place">Georgia Institute of Technology; Advisors: Seung Soon Jang &amp; Natalie Stingelin</div>
+          </div>
+        </li>
+        <li>
+          <img class="edu-logo" src="images/logos/cornell.png" alt="" width="44" height="44" loading="lazy" decoding="async" />
+          <div class="what">
+            <div class="title">M.S. Chemical Engineering <span class="muted">• Focus: Machine Learning</span></div>
+            <div class="place">Cornell University; Advisors: Rong Yang &amp; Jeffrey D. Varner</div>
+          </div>
+        </li>
+        <li>
+          <img class="edu-logo" src="images/logos/buffalo.png" alt="" width="86" height="44" loading="lazy" decoding="async" />
+          <div class="what">
+            <div class="title">B.S. / B.A. Chemical Engineering &amp; Chemistry (<i>Summa Cum Laude</i>)</div>
+            <div class="place">University at Buffalo, SUNY; Advisor: Haiqing Lin</div>
+          </div>
+        </li>
+      </ul>
+    </section>
 
     <!-- TALKS -->
     <section id="talks" class="section">
@@ -482,7 +463,7 @@
         <p class="coda-overline">Get in touch</p>
         <h2>Contact</h2>
         <p>
-          Currently a founding engineer at an early-stage San Francisco startup (ML / simulation systems) — happy to compare notes with builders, founders, and people working on hard ML problems.
+          Currently a founding engineer at a San Francisco startup — happy to compare notes with builders, founders, and people working on hard ML problems.
         </p>
         <a class="coda-cta" href="mailto:zfeng77@gatech.edu">zfeng77@gatech.edu</a>
       </div>
@@ -490,7 +471,6 @@
   </main>
 
   <nav class="bottom-bar" aria-label="Section navigation">
-    <a href="#work">Work</a>
     <a href="#publications">Papers</a>
     <a href="#news">News</a>
     <a href="#contact">Contact</a>
@@ -500,10 +480,10 @@
     <div class="wrap">
       <nav class="footer-map" aria-label="Site map">
         <a href="#news">News</a>
-        <a href="#work">Work</a>
         <a href="#publications">Publications</a>
         <a href="#awards">Awards</a>
         <a href="#service">Services</a>
+        <a href="#education">Education</a>
         <a href="#talks">Presentations</a>
         <a href="#contact">Contact</a>
         <a href="CV/Zhihao_Feng_CV.pdf">CV</a>
@@ -544,33 +524,19 @@
       else swap();
     });
 
-    // Publications: two-tier "Selected" view / year-grouped archive view.
-    // Dividers are .pub-divider (never .pub) so they can't match revealSelector
-    // and end up hidden by the scroll motion with no guaranteed reveal.
+    // Publications sort toggle (visitor-selectable order)
     const pubList = document.querySelector('.pubs');
     const sortBtns = document.querySelectorAll('.pub-sort-btn');
     function renderPubs(mode){
       if (!pubList) return;
-      pubList.querySelectorAll('.pub-divider').forEach(d => d.remove());
-      const items = [...pubList.querySelectorAll('.pub')];
+      const items = [...pubList.children];
       items.sort((a, b) => {
         if (mode === 'year') {
           return (+b.dataset.year - +a.dataset.year) || (+a.dataset.order - +b.dataset.order);
         }
         return (+a.dataset.rank - +b.dataset.rank);
       });
-      let year = null;
-      items.forEach(li => {
-        li.classList.toggle('pub-compact', mode === 'year' || +li.dataset.rank > 3);
-        if (mode === 'year' && li.dataset.year !== year){
-          year = li.dataset.year;
-          const d = document.createElement('li');
-          d.className = 'pub-divider';
-          d.textContent = year;
-          pubList.appendChild(d);
-        }
-        pubList.appendChild(li);
-      });
+      items.forEach(li => pubList.appendChild(li));
       sortBtns.forEach(btn => {
         const on = btn.dataset.sort === mode;
         btn.classList.toggle('is-active', on);
@@ -607,7 +573,7 @@
     // Scroll motion — GSAP walkthrough (scroll-scrubbed) when the CDN loaded, legacy
     // one-shot reveal otherwise. Each path only hides what it reveals itself, so a
     // failed script load can never leave content invisible.
-    const revealSelector = '.section h2, .feature, .pub, .talk, .news-list li, .ledger li, .contact-coda';
+    const revealSelector = '.section h2, .pub, .talk, .news-list li, .ledger li, .edu-list li, .contact-coda';
 
     // Legacy reveal — bulletproof: anything reachable always reveals, so content can never get stuck hidden.
     // Reduced-motion and JS-off show everything statically (the hidden start-state is gated to .has-reveal + no-preference).
@@ -677,7 +643,7 @@
 
       // Parallax drift on figure thumbnails (desktop only; auto-reverted below 720px)
       gsap.matchMedia().add('(min-width: 720px)', () => {
-        document.querySelectorAll('.pub:not(.pub-compact) .thumb, .talk .thumb, .feature-fig img').forEach(img => {
+        document.querySelectorAll('.pub .thumb, .talk .thumb').forEach(img => {
           gsap.fromTo(img, { y: 10 }, {
             y: -10, ease: 'none',
             scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
