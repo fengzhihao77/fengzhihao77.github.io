@@ -59,7 +59,7 @@
   --text: #1f2024;
   --text-strong: #0a0a0b;
   --muted: #57585f;
-  --muted-2: #73747c;
+  --muted-2: #686972; /* AA on card surfaces (5.0:1) — was #73747c at 4.27:1, failing */
 
   --border: #e3e4ea;
   --shadow: 0 14px 34px rgba(20,20,40,.12);
@@ -129,7 +129,7 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
 .skip-link:focus{ left: 10px; z-index: 9999; }
 
 /* Visible keyboard focus (WCAG 2.4.11) */
-:where(a, button, summary, .chip, .pill, .nav-toggle, .theme-toggle):focus-visible{
+:where(a, button, summary, .chip, .pill, .theme-toggle):focus-visible{
   outline: 2px solid var(--link-hover);
   outline-offset: 2px;
   border-radius: 8px;
@@ -178,7 +178,6 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   background: var(--surface-1);
   border: 1px solid var(--border);
 }
-.brand-text{ letter-spacing: .2px; }
 
 .site-nav{
   display: flex;
@@ -220,10 +219,10 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   border-color: var(--accent-border);
 }
 
-.nav-cta{
+.site-nav .nav-cta{
   border: 1px solid var(--border);
   background: var(--surface-1);
-  color: var(--text) !important;
+  color: var(--text);
   transition: border-color .18s ease, background .18s ease, transform .2s cubic-bezier(.2,.8,.2,1);
 }
 .nav-cta::before{ display: none; }
@@ -356,7 +355,6 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   color: var(--text);
 }
 .muted{ color: var(--muted); }
-.muted-2{ color: var(--muted-2); }
 
 .hero-links{
   display: flex;
@@ -446,15 +444,23 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   .hero-photo img{ width: 110px; height: 110px; }
 }
 
-/* Hero compression at phone widths: Selected Work should appear within ~1.5 screens */
+/* Hero reflow at phone widths: only the name + subtitle sit beside the photo;
+   .hero-text becomes a transparent grid pass-through (display:contents keeps its
+   children in the DOM/a11y tree — selectors like `.hero-text > *` still match)
+   so blurb/award/links/badges/skills span the full width below, instead of being
+   squeezed into a narrow column for the whole ~1000px hero height. */
 @media (max-width: 480px){
-  .hero{ padding-top: 22px; gap: 14px; grid-template-columns: 100px 1fr; }
+  .hero{ padding-top: 22px; gap: 6px 14px; grid-template-columns: 100px 1fr; }
+  .hero-photo{ grid-column: 1; grid-row: 1 / 3; }
   .hero-photo img{ width: 100px; height: 100px; }
-  .hero-text h1{ font-size: 2.1rem; }
-  .hero-subtitle{ font-size: .95rem; }
-  .hero-blurb{ font-size: .95rem; margin-bottom: 12px; }
-  .hero-award{ font-size: .88rem; padding: 8px 12px; margin-bottom: 12px; }
-  .hero-links{ gap: 8px; margin-bottom: 10px; }
+  .hero-text{ display: contents; }
+  .hero-text h1{ grid-column: 2; font-size: 2.1rem; }
+  .hero-subtitle{ grid-column: 2; font-size: .95rem; }
+  .hero-blurb{ grid-column: 1 / -1; font-size: .95rem; margin-bottom: 12px; }
+  .hero-award{ grid-column: 1 / -1; font-size: .88rem; padding: 8px 12px; margin-bottom: 12px; }
+  .hero-links{ grid-column: 1 / -1; gap: 8px; margin-bottom: 10px; }
+  .hero-badges{ grid-column: 1 / -1; }
+  .hero-skills{ grid-column: 1 / -1; }
   .chip{ padding: 7px 10px; font-size: .9rem; }
   .badge{ font-size: .8rem; padding: 5px 8px; }
 }
@@ -465,11 +471,6 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px;
-}
-.card h3{
-  margin: 0 0 8px;
-  font-size: 1.05rem;
-  color: var(--text-strong);
 }
 /* ---------- Key/Value list ---------- */
 .kv{
@@ -490,7 +491,7 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
 }
 .kv li > span:last-child{ color: var(--muted); }
 /* Gold skill label (e.g., Agentic AI) — same theme-aware gold as links, AA in both themes */
-.kv li > span.kv-gold{ color: var(--link); }
+.kv-gold{ color: var(--link); }
 
 @media (max-width: 520px){
   .kv li{ grid-template-columns: 1fr; gap: 2px; }
@@ -505,6 +506,7 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   font-weight: 700;
   color: var(--text-strong);
 }
+.details summary:hover{ color: var(--link-hover); }
 /* CV-style ledger rows: content left, dates right, hairline separators */
 .ledger{
   list-style: none;
@@ -566,8 +568,9 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   background: var(--panel);
 }
 .pub-title{
+  margin: 0 0 2px;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 2px;
   color: var(--text-strong);
 }
 .pub-meta{
@@ -653,7 +656,7 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   width: 350px;
   height: 237.73px;
 }
-.talk-title{ font-weight: 700; margin-bottom: 4px; color: var(--text-strong); }
+.talk-title{ margin: 0 0 4px; font-size: 1rem; font-weight: 700; color: var(--text-strong); }
 .talk-meta{ color: var(--muted); font-weight: 500; margin-bottom: 8px; }
 .talk-desc{ color: var(--muted-2); }
 
@@ -757,10 +760,19 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   *{ transition-property: opacity, color, background-color, border-color, box-shadow !important; animation: none !important; }
 }
 
-/* ---------- About ---------- */
-.about-card p{
-  margin: 0;
-  color: var(--text);
+/* ---------- Print ---------- */
+/* GSAP leaves inline opacity:0 / visibility:hidden on anything the scrubbed
+   reveal hasn't scrolled past yet — !important is required to beat those inline
+   styles so Cmd+P / Save-as-PDF renders the whole page, not just the hero. */
+@media print{
+  .bottom-bar, .progress-rail, .theme-toggle{ display: none !important; }
+  .hero,
+  .section h2, .pub, .talk, .news-list li, .ledger li, .edu-list li, .contact-coda{
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    translate: 0 0 !important;
+  }
 }
 
 /* ---------- Compact sections (Awards/Service) ---------- */
@@ -785,9 +797,6 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
 .talk-noimg{
   grid-template-columns: 1fr;  /* one column */
 }
-.talk-noimg .thumb{
-  display: none;
-}
 .talk-noimg .text-link{
   display: inline-block;
   margin-top: 2px;
@@ -807,7 +816,7 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
 }
 :root{ --font-display: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', serif; }
 
-h1, .section h2, .card h3, .brand{
+h1, .section h2, .brand{
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -954,14 +963,14 @@ body::before{
   }
   .has-reveal .in{ opacity: 1 !important; translate: 0 0 !important; }
 
-  /* Gild-on-reveal: the section heading draws its gold underline + one soft bloom */
-  .has-reveal .section h2::after{ transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease) .1s; }
-  .has-reveal .section h2.in::after{ transform: scaleX(1); }
-  .has-reveal .section h2.in{ animation: bloom .9s var(--ease) 1; }
+  /* Gild-on-reveal: the section heading draws its gold underline + one soft bloom
+     (shared by both the legacy .has-reveal path and the GSAP .has-gsap path) */
+  .has-reveal .section h2::after, .has-gsap .section h2::after{ transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease) .1s; }
+  .has-reveal .section h2.in::after, .has-gsap .section h2.in::after{ transform: scaleX(1); }
+  .has-reveal .section h2.in, .has-gsap .section h2.in{ animation: bloom .9s var(--ease) 1; }
 
   /* GSAP walkthrough mode (html.has-gsap): the scroll-scrubbed reveals own `transform`
-     via inline styles, so hover-lift moves to the independent `translate` property,
-     and the gild underline mirrors the .has-reveal rules above. */
+     via inline styles, so hover-lift moves to the independent `translate` property. */
   .has-gsap .pub, .has-gsap .talk{
     transition: translate .2s var(--ease), box-shadow .2s var(--ease), border-color .18s var(--ease);
   }
@@ -969,9 +978,6 @@ body::before{
   .has-gsap .pub:focus-within, .has-gsap .talk:focus-within{
     translate: 0 -2px;
   }
-  .has-gsap .section h2::after{ transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease) .1s; }
-  .has-gsap .section h2.in::after{ transform: scaleX(1); }
-  .has-gsap .section h2.in{ animation: bloom .9s var(--ease) 1; }
 }
 
 /* Gold reading-progress rail (shown only in GSAP walkthrough mode; GSAP scrubs scaleX) */
