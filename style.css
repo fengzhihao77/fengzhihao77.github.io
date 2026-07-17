@@ -417,20 +417,21 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
 }
 .edu-list li{
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 64px 1fr;
   gap: 18px;
   align-items: center;
   padding: 14px 0;
   border-bottom: 1px solid var(--border);
 }
+/* University seals: circular marks on a circular white chip (legible in both themes) */
 .edu-logo{
-  width: 96px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 6px 10px;
+  border-radius: 999px;
+  padding: 4px;
   box-sizing: border-box;
 }
 .edu-list .title{ font-weight: 700; color: var(--text-strong); }
