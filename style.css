@@ -634,6 +634,9 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   color: var(--text-strong);
 }
 
+/* Thumbnail-less publication card (image pending or unavailable) */
+.pub-noimg{ grid-template-columns: 1fr; }
+
 @media (max-width: 760px){
   .pub{ grid-template-columns: 1fr; }
   .thumb{ width: 100%; height: 150px; }
