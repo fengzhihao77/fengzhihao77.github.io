@@ -1,1 +1,6 @@
 .DS_Store
+
+# Local working files (slide decks, thumbnail sources) — never publish
+*.pptx
+~$*
+images/papers/paper_6.jpg
