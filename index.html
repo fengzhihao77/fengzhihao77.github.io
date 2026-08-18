@@ -755,6 +755,24 @@
       // Layout changes move trigger positions — re-measure
       document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => ScrollTrigger.refresh()));
       sortBtns.forEach(btn => btn.addEventListener('click', () => ScrollTrigger.refresh()));
+      // Late-loading images/fonts (e.g. the hero photo) shift layout after triggers
+      // are first measured, which can leave an early element's trigger window stale.
+      window.addEventListener('load', () => ScrollTrigger.refresh());
+
+      // Bulletproof, matching legacyReveal's guarantee: a stale trigger (from the
+      // refresh above, or an instant #hash jump landing before ScrollTrigger inits)
+      // can leave an element's autoAlpha stuck below 1 even after it's been scrolled
+      // past. Sweep anything past the reveal line that never finished revealing.
+      function unstickPassedReveals(){
+        const line = window.innerHeight * 0.92;
+        document.querySelectorAll(revealSelector).forEach(el => {
+          if (el.getBoundingClientRect().top < line && getComputedStyle(el).opacity !== '1') {
+            gsap.set(el, { autoAlpha: 1, y: 0 });
+          }
+        });
+      }
+      window.addEventListener('load', () => setTimeout(unstickPassedReveals, 300));
+      setTimeout(unstickPassedReveals, 1500);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
