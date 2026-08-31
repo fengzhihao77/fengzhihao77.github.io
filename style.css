@@ -596,6 +596,7 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   white-space: nowrap;
 }
 .status-review{ color: var(--link); border-color: var(--accent-border); }
+.status-accepted{ color: var(--link); border-color: var(--accent-border); }
 .role-tag{
   font-size: .7rem;
   font-weight: 700;
