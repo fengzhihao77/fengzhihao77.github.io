@@ -656,7 +656,7 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
 }
 .talk .thumb{
   width: 350px;
-  height: 237.73px;
+  height: 262.5px;
 }
 .talk-title{ margin: 0 0 4px; font-size: 1rem; font-weight: 700; color: var(--text-strong); }
 .talk-meta{ color: var(--muted); font-weight: 500; margin-bottom: 8px; }
