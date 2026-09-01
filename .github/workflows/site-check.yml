@@ -1,0 +1,31 @@
+name: site check
+
+# Structural checks only. The --live sync checks are deliberately not run here:
+# on a pull request the branch is *supposed* to differ from what is deployed,
+# so those warnings would be noise. Run them locally instead:
+#     python3 scripts/check_site.py --live --cv
+
+on:
+  pull_request:
+    paths: ["index.html", "style.css", "images/**", "CV/**", "scripts/**"]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --quiet pillow
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      - name: Check site integrity
+        run: python3 scripts/check_site.py --cv
