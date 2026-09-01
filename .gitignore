@@ -2,6 +2,9 @@
 
 # Local working files (slide decks, thumbnail sources) — never publish
 *.pptx
+*.pptx.bak
 ~$*
 images/papers/paper_6.jpg
 paper_pdfs/
+__pycache__/
+.claude/
