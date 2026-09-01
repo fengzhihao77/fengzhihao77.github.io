@@ -27,6 +27,7 @@ import re
 import subprocess
 import sys
 import urllib.request
+from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX = os.path.join(ROOT, "index.html")
@@ -184,6 +185,122 @@ def check_reveal_failsafe(html: str) -> None:
         note("reveal safety net ok: failsafe, refresh and fallback all present")
 
 
+def check_talks_fold(html: str) -> None:
+    """Pin the Talks section to exactly 3 talks above the fold.
+
+    The section leads with the three most recent talks and tucks the rest into
+    the <details>. The realistic way that drifts is silent: a new talk gets
+    prepended alongside the existing ones, the visible count creeps to 4, 5, 6,
+    and nobody notices because nothing breaks — the section just quietly grows
+    back into the wall of cards the fold was added to prevent. Adding a talk is
+    supposed to mean demoting one into the <details>, and this is what says so.
+
+    This walks the real tag tree rather than grepping, for two reasons that have
+    both already bitten: a naive `<article class="talk">` grep silently misses
+    the `class="talk talk-noimg"` cards (the talks with no thumbnail), and there
+    are three <details> on the page — only the one inside <section id="talks">
+    is the talks fold. Counting either of those wrong gives a confident,
+    wrong answer, which is worse than no check at all.
+
+    It also keeps the summary's stated count honest, since a hardcoded number
+    in the label is its own drift vector.
+    """
+    void = {
+        "area", "base", "br", "col", "embed", "hr", "img", "input",
+        "link", "meta", "param", "source", "track", "wbr",
+    }
+
+    class _Talks(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__(convert_charrefs=True)
+            self.stack: list[str] = []
+            self.section_depth: int | None = None
+            self.fold_depth: int | None = None
+            self.n_out = 0
+            self.n_in = 0
+            self.n_folds = 0
+            self.summary = None
+            self._grab_summary = False
+
+        def _in_section(self) -> bool:
+            return self.section_depth is not None
+
+        def handle_startendtag(self, tag, attrs):
+            pass  # self-closing (e.g. <img ... />) never changes nesting
+
+        def handle_starttag(self, tag, attrs):
+            a = dict(attrs)
+            classes = (a.get("class") or "").split()
+            if tag == "section" and a.get("id") == "talks":
+                self.section_depth = len(self.stack)
+            if self._in_section():
+                if tag == "details":
+                    self.n_folds += 1
+                    if self.fold_depth is None:
+                        self.fold_depth = len(self.stack)
+                elif tag == "summary" and self.fold_depth is not None:
+                    self._grab_summary = True
+                elif tag == "article" and "talk" in classes:
+                    if self.fold_depth is None:
+                        self.n_out += 1
+                    else:
+                        self.n_in += 1
+            if tag not in void:
+                self.stack.append(tag)
+
+        def handle_endtag(self, tag):
+            if tag in void:
+                return
+            while self.stack and self.stack[-1] != tag:
+                self.stack.pop()
+            if self.stack:
+                self.stack.pop()
+            depth = len(self.stack)
+            if self.fold_depth is not None and tag == "details" and depth == self.fold_depth:
+                self.fold_depth = None
+            if self.section_depth is not None and tag == "section" and depth == self.section_depth:
+                self.section_depth = None
+
+        def handle_data(self, data):
+            if self._grab_summary and data.strip():
+                self.summary = data.strip()
+                self._grab_summary = False
+
+    p = _Talks()
+    p.feed(html)
+
+    if p.n_out + p.n_in == 0:
+        err("talks section not found (or it has no talk cards)")
+        return
+    if p.n_folds != 1:
+        err(f"talks section should contain exactly one <details> fold, found {p.n_folds}")
+        return
+
+    total = p.n_out + p.n_in
+    clean = True
+
+    if p.n_out != 3:
+        clean = False
+        err(
+            f"talks fold: {p.n_out} talks render above the fold, expected exactly 3 "
+            f"— move the extra one(s) inside <details> (or update this check "
+            f"deliberately if the design changed)"
+        )
+
+    stated = re.fullmatch(r"(\d+) more talks", p.summary or "")
+    if not stated:
+        clean = False
+        warn(f"talks fold: summary {p.summary!r} no longer states how many talks it hides")
+    elif int(stated.group(1)) != p.n_in:
+        clean = False
+        err(
+            f"talks fold: summary says {p.summary!r} but the fold holds {p.n_in}"
+        )
+
+    if clean:
+        note(f"talks fold ok: {p.n_out} shown, {p.n_in} folded ({total} total)")
+
+
 def check_anchors(html: str) -> None:
     ids = set(re.findall(r'\sid="([^"]+)"', html))
     targets = set(re.findall(r'href="#([^"]+)"', html))
@@ -286,6 +403,7 @@ def main() -> int:
     check_local_assets(html)
     check_thumbnail_ratios(html)
     check_reveal_failsafe(html)
+    check_talks_fold(html)
     check_anchors(html)
     if args.cv:
         check_cv()
