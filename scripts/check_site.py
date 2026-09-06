@@ -328,7 +328,7 @@ def check_cv() -> None:
     flat = " ".join(text.split())
     if "chronotope" in flat.lower():
         err("CV names the company — public documents are meant to stay stealth")
-    if "zfeng77@gatech.edu" not in flat:
+    if "zf99@cornell.edu" not in flat:
         warn("CV does not contain the public contact address")
     pages = text.count("\f") or 1
     note(f"CV ok: {pages} pages, privacy gate passed")
