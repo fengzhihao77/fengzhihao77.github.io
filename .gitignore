@@ -8,3 +8,6 @@ images/papers/paper_6.jpg
 paper_pdfs/
 __pycache__/
 .claude/
+
+# Job-application CV variant (with the Founding Engineer bullets): kept locally, never published
+CV/Zhihao_Feng_CV_job.pdf
