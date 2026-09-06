@@ -328,6 +328,12 @@ def check_cv() -> None:
     flat = " ".join(text.split())
     if "chronotope" in flat.lower():
         err("CV names the company — public documents are meant to stay stealth")
+    # The Overleaf source has two variants (\ifsitecv). Only the site-facing one,
+    # without the Founding Engineer bullets, may be installed here.
+    for phrase in ("helped close", "external meetings", "customer deals"):
+        if phrase in flat.lower():
+            err(f"CV contains the job-application bullets ({phrase!r}) — "
+                "install the site-facing variant (\\sitecvtrue) instead")
     if "zf99@cornell.edu" not in flat:
         warn("CV does not contain the public contact address")
     pages = text.count("\f") or 1
