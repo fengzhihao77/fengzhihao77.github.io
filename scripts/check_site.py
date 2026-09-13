@@ -32,6 +32,7 @@ from html.parser import HTMLParser
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX = os.path.join(ROOT, "index.html")
 CV = os.path.join(ROOT, "CV", "Zhihao_Feng_CV.pdf")
+CV_JOB = os.path.join(os.path.dirname(CV), "Zhihao_Feng_CV_job.pdf")
 LIVE_URL = "https://fengzhihao77.github.io/"
 
 errors: list[str] = []
@@ -367,6 +368,27 @@ def check_impact_factor_links(html: str) -> None:
         note(f"impact-factor links ok: all {markers} markers link to their source")
 
 
+PAGE_NUMBER = re.compile(r"^\[\s*\d+\s*\]$")
+HEADING = re.compile(r"^[A-Z][A-Z &]{5,}$")
+SUBHEADINGS = {"Peer-reviewed articles", "Conference proceedings",
+               "Manuscripts in review/revision", "Manuscripts in preparation"}
+
+
+def cv_layout_problems(text: str) -> list:
+    problems = []
+    for n, page in enumerate(text.split("\f"), 1):
+        lines = [line.strip() for line in page.splitlines() if line.strip()]
+        while lines and PAGE_NUMBER.match(lines[-1]):
+            lines.pop()
+        if lines and (HEADING.match(lines[-1]) or lines[-1] in SUBHEADINGS):
+            problems.append(f"page {n} ends with the heading {lines[-1]!r} — "
+                            "move it to the next page with its content (\\needspace)")
+        if any(re.search(r"\(IF(\s*=)?\s*$", line) for line in page.splitlines()):
+            problems.append(f"page {n} splits an impact-factor marker across lines — "
+                            "write it as (IF~=~x)")
+    return problems
+
+
 def check_cv(html: str = "") -> None:
     if not os.path.exists(CV):
         err("CV pdf is missing")
@@ -400,6 +422,15 @@ def check_cv(html: str = "") -> None:
                 "update both to the same JCR release")
         else:
             note(f"impact factors ok: {len(site_ifs)} on the site, all match the CV")
+    layout = cv_layout_problems(text)
+    if os.path.exists(CV_JOB):
+        job_text = subprocess.run(["pdftotext", "-layout", CV_JOB, "-"],
+                                  capture_output=True, text=True).stdout
+        layout += [f"job variant: {problem}" for problem in cv_layout_problems(job_text)]
+    for problem in layout:
+        err(f"CV layout: {problem}")
+    if not layout:
+        note("CV layout ok: no stranded headings, no split impact-factor markers")
     pages = text.count("\f") or 1
     note(f"CV ok: {pages} pages, privacy gate passed")
 
