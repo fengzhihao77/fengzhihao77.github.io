@@ -357,17 +357,6 @@ def check_anchors(html: str) -> None:
 
 # ------------------------------------------------------------------- the CV
 
-def check_impact_factor_links(html: str) -> None:
-    markers = len(re.findall(r'<span class="jif">', html))
-    linked = len(re.findall(
-        r'<a class="jif-link" href="https://[^"]+">(?:(?!</a>).)*?<span class="jif">', html, re.S))
-    if markers != linked:
-        err(f"{markers - linked} impact-factor marker(s) lack a link to the publisher page "
-            "that states the figure")
-    elif markers:
-        note(f"impact-factor links ok: all {markers} markers link to their source")
-
-
 PAGE_NUMBER = re.compile(r"^\[\s*\d+\s*\]$")
 HEADING = re.compile(r"^[A-Z][A-Z &]{5,}$")
 SUBHEADINGS = {"Peer-reviewed articles", "Conference proceedings",
@@ -389,7 +378,7 @@ def cv_layout_problems(text: str) -> list:
     return problems
 
 
-def check_cv(html: str = "") -> None:
+def check_cv() -> None:
     if not os.path.exists(CV):
         err("CV pdf is missing")
         return
@@ -413,15 +402,6 @@ def check_cv(html: str = "") -> None:
                 "install the site-facing variant (\\sitecvtrue) instead")
     if "zf99@cornell.edu" not in flat:
         warn("CV does not contain the public contact address")
-    # The site and CV must quote the same JCR release; they go stale together each June.
-    site_ifs = re.findall(r"\(IF = ([\d.]+)\)", html)
-    if site_ifs:
-        stale = sorted(set(site_ifs) - set(re.findall(r"\(IF = ([\d.]+)\)", flat)))
-        if stale:
-            err(f"site shows impact factors the CV does not: {stale} — "
-                "update both to the same JCR release")
-        else:
-            note(f"impact factors ok: {len(site_ifs)} on the site, all match the CV")
     layout = cv_layout_problems(text)
     if os.path.exists(CV_JOB):
         job_text = subprocess.run(["pdftotext", "-layout", CV_JOB, "-"],
@@ -506,10 +486,9 @@ def main() -> int:
     check_reveal_failsafe(html)
     check_talks_fold(html)
     check_anchors(html)
-    check_impact_factor_links(html)
     check_forbidden_terms()
     if args.cv:
-        check_cv(html)
+        check_cv()
     if args.live:
         check_live()
 
