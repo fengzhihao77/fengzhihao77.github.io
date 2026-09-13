@@ -11,3 +11,6 @@ __pycache__/
 
 # Job-application CV variant (with the Founding Engineer bullets): kept locally, never published
 CV/Zhihao_Feng_CV_job.pdf
+
+# Private lists that must never be published; CI reads its copy from a repository secret
+.private/

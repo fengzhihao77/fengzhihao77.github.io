@@ -58,6 +58,49 @@ def read_index() -> str:
 
 # ---------------------------------------------------------------- structural
 
+TERMS_FILE = os.path.join(ROOT, ".private", "forbidden-terms.txt")
+
+
+def forbidden_terms() -> list:
+    raw = os.environ.get("SITE_FORBIDDEN_TERMS") or (
+        open(TERMS_FILE, encoding="utf-8").read() if os.path.exists(TERMS_FILE) else "")
+    return [t.strip() for t in raw.splitlines() if t.strip() and not t.strip().startswith("#")]
+
+
+def term_hits(text: str, terms: list) -> list:
+    return [i for i, term in enumerate(terms, 1)
+            if re.search(rf"(?<!\w){re.escape(term)}(?!\w)", text, re.I)]
+
+
+def name_term(terms: list, i: int) -> str:
+    # This repository's CI logs are public, so a matched term is shown only by number there.
+    return f"#{i} on the list" if os.environ.get("CI") else repr(terms[i - 1])
+
+
+def check_forbidden_terms() -> None:
+    terms = forbidden_terms()
+    if not terms:
+        msg = ("privacy gate has no forbidden-terms list: set the SITE_FORBIDDEN_TERMS "
+               "secret in CI, or create .private/forbidden-terms.txt locally")
+        (err if os.environ.get("CI") else warn)(msg)
+        return
+    scanned = hits = 0
+    for path in git("ls-files").splitlines():
+        try:
+            with open(os.path.join(ROOT, path), "rb") as fh:
+                data = fh.read()
+        except OSError:
+            continue
+        if b"\0" in data:
+            continue
+        scanned += 1
+        for i in term_hits(data.decode("utf-8", "replace"), terms):
+            hits += 1
+            err(f"{path} contains forbidden term {name_term(terms, i)} — this repository is public")
+    if not hits:
+        note(f"privacy gate ok: {len(terms)} forbidden terms, none in {scanned} tracked text files")
+
+
 def check_jsonld(html: str) -> None:
     m = re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
     if not m:
@@ -326,8 +369,9 @@ def check_cv(html: str = "") -> None:
         note("CV text check skipped (pdftotext unavailable)")
         return
     flat = " ".join(text.split())
-    if "chronotope" in flat.lower():
-        err("CV names the company — public documents are meant to stay stealth")
+    terms = forbidden_terms()
+    for i in term_hits(flat, terms):
+        err(f"CV contains forbidden term {name_term(terms, i)} — public documents stay stealth")
     # The Overleaf source has two variants (\ifsitecv). Only the site-facing one,
     # without the Founding Engineer bullets, may be installed here.
     for phrase in ("helped close", "external meetings", "customer deals"):
@@ -420,6 +464,7 @@ def main() -> int:
     check_reveal_failsafe(html)
     check_talks_fold(html)
     check_anchors(html)
+    check_forbidden_terms()
     if args.cv:
         check_cv(html)
     if args.live:
