@@ -584,6 +584,8 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   margin-bottom: 8px;
 }
 .pub-meta .venue{ color: var(--muted); }
+.jif{ white-space: nowrap; }
+.pub-note{ margin: 2px 0 10px; font-size: .8rem; }
 .status{
   font-size: .7rem;
   font-weight: 700;

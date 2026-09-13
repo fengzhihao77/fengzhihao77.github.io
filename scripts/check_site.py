@@ -313,7 +313,7 @@ def check_anchors(html: str) -> None:
 
 # ------------------------------------------------------------------- the CV
 
-def check_cv() -> None:
+def check_cv(html: str = "") -> None:
     if not os.path.exists(CV):
         err("CV pdf is missing")
         return
@@ -336,6 +336,15 @@ def check_cv() -> None:
                 "install the site-facing variant (\\sitecvtrue) instead")
     if "zf99@cornell.edu" not in flat:
         warn("CV does not contain the public contact address")
+    # The site and CV must quote the same JCR release; they go stale together each June.
+    site_ifs = re.findall(r"\(IF = ([\d.]+)\)", html)
+    if site_ifs:
+        stale = sorted(set(site_ifs) - set(re.findall(r"\(IF = ([\d.]+)\)", flat)))
+        if stale:
+            err(f"site shows impact factors the CV does not: {stale} — "
+                "update both to the same JCR release")
+        else:
+            note(f"impact factors ok: {len(site_ifs)} on the site, all match the CV")
     pages = text.count("\f") or 1
     note(f"CV ok: {pages} pages, privacy gate passed")
 
@@ -412,7 +421,7 @@ def main() -> int:
     check_talks_fold(html)
     check_anchors(html)
     if args.cv:
-        check_cv()
+        check_cv(html)
     if args.live:
         check_live()
 
