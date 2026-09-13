@@ -584,9 +584,6 @@ strong, b{ font-weight: 600; color: var(--text-strong); }
   margin-bottom: 8px;
 }
 .pub-meta .venue{ color: var(--muted); }
-.jif{ white-space: nowrap; }
-.jif-link{ color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
-.jif-link:hover{ color: var(--link-hover); }
 .status{
   font-size: .7rem;
   font-weight: 700;
