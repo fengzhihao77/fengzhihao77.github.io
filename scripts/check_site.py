@@ -356,6 +356,17 @@ def check_anchors(html: str) -> None:
 
 # ------------------------------------------------------------------- the CV
 
+def check_impact_factor_links(html: str) -> None:
+    markers = len(re.findall(r'<span class="jif">', html))
+    linked = len(re.findall(
+        r'<a class="jif-link" href="https://[^"]+">(?:(?!</a>).)*?<span class="jif">', html, re.S))
+    if markers != linked:
+        err(f"{markers - linked} impact-factor marker(s) lack a link to the publisher page "
+            "that states the figure")
+    elif markers:
+        note(f"impact-factor links ok: all {markers} markers link to their source")
+
+
 def check_cv(html: str = "") -> None:
     if not os.path.exists(CV):
         err("CV pdf is missing")
@@ -464,6 +475,7 @@ def main() -> int:
     check_reveal_failsafe(html)
     check_talks_fold(html)
     check_anchors(html)
+    check_impact_factor_links(html)
     check_forbidden_terms()
     if args.cv:
         check_cv(html)
